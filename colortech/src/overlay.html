@@ -1,0 +1,67 @@
+<!doctype html><html lang="he" dir="rtl"><head><meta charset="utf-8">
+<style>
+@font-face{font-family:Rubik;font-weight:700;src:url(assets/rubik-hebrew-700-normal.woff2);unicode-range:U+0590-05FF,U+200C-2010,U+20AA,U+25CC,U+FB1D-FB4F}
+@font-face{font-family:Rubik;font-weight:800;src:url(assets/rubik-hebrew-800-normal.woff2);unicode-range:U+0590-05FF,U+200C-2010,U+20AA,U+25CC,U+FB1D-FB4F}
+@font-face{font-family:Rubik;font-weight:700;src:url(assets/rubik-latin-700-normal.woff2);unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+2000-206F,U+2074,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:Rubik;font-weight:800;src:url(assets/rubik-latin-800-normal.woff2);unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+2000-206F,U+2074,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+html,body{margin:0;background:transparent}
+body{width:1080px;height:1920px;position:relative;overflow:hidden;font-family:Rubik,'Noto Color Emoji',sans-serif;color:#fff}
+.abs{position:absolute;left:150px;width:780px;text-align:center}
+#hook{top:300px;opacity:0}
+#hook::before{content:'';position:absolute;left:-60px;right:-60px;top:-50px;bottom:-60px;background:radial-gradient(ellipse at center,rgba(0,0,0,.42) 0%,rgba(0,0,0,.28) 45%,rgba(0,0,0,0) 72%);z-index:-1}
+.kicker{display:inline-block;background:rgba(0,0,0,.55);padding:10px 34px 12px;border-radius:14px;font-weight:700;font-size:44px;letter-spacing:.5px;text-shadow:0 2px 8px rgba(0,0,0,.6)}
+.big{margin-top:26px;font-weight:800;font-size:104px;line-height:1.1;white-space:nowrap;
+  text-shadow:0 4px 0 rgba(0,0,0,.55),0 0 18px rgba(0,0,0,.75),0 8px 34px rgba(0,0,0,.7);}
+.big .em{font-family:'Noto Color Emoji';font-size:.8em}
+#mid{top:1130px;opacity:0}
+.pill{display:inline-block;background:rgba(0,0,0,.5);padding:14px 44px 18px;border-radius:60px;font-weight:800;font-size:76px;
+  text-shadow:0 3px 0 rgba(0,0,0,.5),0 0 14px rgba(0,0,0,.7)}
+#wm{position:absolute;left:36px;top:1590px;width:150px;height:150px;opacity:0}
+#dim{position:absolute;inset:0;background:#000;opacity:0}
+#end{position:absolute;inset:0;opacity:1}
+#end .it{position:absolute;left:150px;width:780px;text-align:center;opacity:0}
+#e_logo{top:262px}
+#e_logo img{width:320px;height:320px;filter:drop-shadow(0 8px 24px rgba(0,0,0,.6))}
+#e_name{top:600px;font-weight:800;font-size:132px;line-height:1.1;text-shadow:0 4px 0 rgba(0,0,0,.5),0 6px 28px rgba(0,0,0,.6)}
+#e_sub{top:752px;font-weight:700;font-size:50px;letter-spacing:1px;text-shadow:0 3px 14px rgba(0,0,0,.7)}
+#e_btn{top:858px}
+#e_btn span{display:inline-block;direction:ltr;background:#fff;color:#14210f;border-radius:70px;padding:20px 52px 24px;font-weight:800;font-size:70px;box-shadow:0 10px 40px rgba(0,0,0,.5)}
+#e_btn .em{font-family:'Noto Color Emoji';font-size:.85em;margin-right:12px}
+#e_cta{top:1012px;font-weight:700;font-size:42px;line-height:1.35;text-shadow:0 3px 14px rgba(0,0,0,.75)}
+#e_handle{top:1168px;font-weight:800;font-size:50px;direction:ltr;text-shadow:0 3px 14px rgba(0,0,0,.75);letter-spacing:.5px}
+</style></head><body>
+<div id="dim"></div>
+<div id="hook" class="abs"><div class="kicker">שפכטל אמריקאי</div><div class="big">פינה ישרה<br>במשיכה אחת <span class="em">💯</span></div></div>
+<div id="mid" class="abs"><span class="pill">עכשיו המשיכה <span style="font-family:'Noto Color Emoji';font-size:.85em">👇</span></span></div>
+<img id="wm" src="assets/logo_circle.png">
+<div id="end">
+ <div id="e_logo" class="it"><img src="assets/logo_circle.png"></div>
+ <div id="e_name" class="it">קולורטק</div>
+ <div id="e_sub" class="it">בנייה · שפכטל · צבע</div>
+ <div id="e_btn" class="it"><span><b class="em">📞</b>053-323-7036</span></div>
+ <div id="e_cta" class="it">ליאב — להצעת מחיר,<br>שיחה או הודעה בוואטסאפ</div>
+ <div id="e_handle" class="it">@colortech.il</div>
+</div>
+<script>
+const T=18.0, END=T-3.5;
+const clamp=(x,a=0,b=1)=>Math.min(b,Math.max(a,x));
+const easeOut=x=>1-Math.pow(1-clamp(x),3);
+const pop=(x)=>{x=clamp(x);return x<1?0.86+0.14*easeOut(x)+0.05*Math.sin(Math.PI*x):1}; // slight overshoot
+function render(t){
+  const $=id=>document.getElementById(id);
+  // hook 0..4.0 : 0.15s pop in, 0.2s fade out
+  let a=clamp((4.0-t)/0.2); $('hook').style.opacity=a;
+  $('hook').style.transform=`scale(${t<0.15?pop(t/0.15):1})`;
+  // mid caption
+  const m0=10.3,m1=11.95; a=clamp((t-m0)/0.15)*clamp((m1-t)/0.2); $('mid').style.opacity=a;
+  $('mid').style.transform=`scale(${pop((t-m0)/0.15)})`;
+  // watermark
+  $('wm').style.opacity=0.9*clamp((END+0.35-t)/0.25);
+  // end card
+  $('dim').style.opacity=0.66*easeOut((t-END)/0.45);
+  const items=['e_logo','e_name','e_sub','e_btn','e_cta','e_handle'];
+  items.forEach((id,i)=>{const x=easeOut((t-END-0.15-i*0.12)/0.35);const el=$(id);el.style.opacity=x;el.style.transform=`translateY(${(1-x)*24}px)`;});
+  return true;
+}
+window.render=render;
+</script></body></html>
