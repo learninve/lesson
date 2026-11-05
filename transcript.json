@@ -1,0 +1,9 @@
+{
+  "note": "No speech detected by Silero VAD; without VAD the model only hallucinated a repeated token. Audio is non-speech (tool/scraping sounds).",
+  "language": "he",
+  "language_probability": 1,
+  "duration": 9.92,
+  "model": "/tmp/claude-0/-home-user-lesson/17d53970-3551-5d06-9fc6-d721d7df1d16/scratchpad/whisper_models/small-ct2",
+  "segments": [],
+  "words": []
+}

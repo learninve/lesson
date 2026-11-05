@@ -1,0 +1,192 @@
+{
+  "fps": 30,
+  "width": 1080,
+  "height": 1920,
+  "durationInFrames": 300,
+  "captionSource": "captions.json",
+  "chunks": [
+    [
+      {
+        "text": "ככה",
+        "start": 0.1,
+        "end": 0.517,
+        "keyword": false,
+        "startFrame": 3,
+        "endFrame": 16
+      },
+      {
+        "text": "מורחים",
+        "start": 0.517,
+        "end": 0.933,
+        "keyword": false,
+        "startFrame": 16,
+        "endFrame": 28
+      },
+      {
+        "text": "שפכטל",
+        "start": 0.933,
+        "end": 1.35,
+        "keyword": true,
+        "startFrame": 28,
+        "endFrame": 40
+      }
+    ],
+    [
+      {
+        "text": "על",
+        "start": 1.5,
+        "end": 2.1,
+        "keyword": false,
+        "startFrame": 45,
+        "endFrame": 63
+      },
+      {
+        "text": "תקרה",
+        "start": 2.1,
+        "end": 2.7,
+        "keyword": false,
+        "startFrame": 63,
+        "endFrame": 81
+      }
+    ],
+    [
+      {
+        "text": "בלי",
+        "start": 2.9,
+        "end": 3.267,
+        "keyword": false,
+        "startFrame": 87,
+        "endFrame": 98
+      },
+      {
+        "text": "טיפה",
+        "start": 3.267,
+        "end": 3.633,
+        "keyword": false,
+        "startFrame": 98,
+        "endFrame": 109
+      },
+      {
+        "text": "מיותרת",
+        "start": 3.633,
+        "end": 4.0,
+        "keyword": true,
+        "startFrame": 109,
+        "endFrame": 120
+      }
+    ],
+    [
+      {
+        "text": "תראו",
+        "start": 4.15,
+        "end": 4.667,
+        "keyword": false,
+        "startFrame": 125,
+        "endFrame": 140
+      },
+      {
+        "text": "את",
+        "start": 4.667,
+        "end": 5.183,
+        "keyword": false,
+        "startFrame": 140,
+        "endFrame": 155
+      },
+      {
+        "text": "הסיפוק",
+        "start": 5.183,
+        "end": 5.7,
+        "keyword": true,
+        "startFrame": 155,
+        "endFrame": 171
+      }
+    ],
+    [
+      {
+        "text": "משיכה",
+        "start": 5.9,
+        "end": 6.55,
+        "keyword": false,
+        "startFrame": 177,
+        "endFrame": 196
+      },
+      {
+        "text": "אחת",
+        "start": 6.55,
+        "end": 7.2,
+        "keyword": true,
+        "startFrame": 196,
+        "endFrame": 216
+      }
+    ],
+    [
+      {
+        "text": "חלקה",
+        "start": 7.35,
+        "end": 7.975,
+        "keyword": true,
+        "startFrame": 220,
+        "endFrame": 239
+      },
+      {
+        "text": "לגמרי",
+        "start": 7.975,
+        "end": 8.6,
+        "keyword": false,
+        "startFrame": 239,
+        "endFrame": 258
+      }
+    ],
+    [
+      {
+        "text": "שמרו",
+        "start": 8.75,
+        "end": 9.117,
+        "keyword": true,
+        "startFrame": 262,
+        "endFrame": 274
+      },
+      {
+        "text": "לעבודה",
+        "start": 9.117,
+        "end": 9.483,
+        "keyword": false,
+        "startFrame": 274,
+        "endFrame": 284
+      },
+      {
+        "text": "הבאה",
+        "start": 9.483,
+        "end": 9.85,
+        "keyword": false,
+        "startFrame": 284,
+        "endFrame": 296
+      }
+    ]
+  ],
+  "beats": [
+    3,
+    17,
+    38,
+    87,
+    101,
+    122,
+    140,
+    166,
+    177,
+    202,
+    220,
+    250,
+    262
+  ],
+  "audioBeats": [
+    17,
+    38,
+    101,
+    122,
+    140,
+    166,
+    202,
+    250
+  ]
+}

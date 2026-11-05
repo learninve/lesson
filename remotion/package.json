@@ -1,0 +1,17 @@
+{
+  "name": "viral-reels",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "render": "remotion render src/index.ts ViralReel viral_output.mp4"
+  },
+  "dependencies": {
+    "@remotion/cli": "^4.0.540",
+    "@remotion/media-utils": "^4.0.540",
+    "@types/react": "^19.3.0",
+    "react": "^19.3.1",
+    "react-dom": "^19.3.1",
+    "remotion": "^4.0.540",
+    "typescript": "^7.0.2"
+  }
+}

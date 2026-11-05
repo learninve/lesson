@@ -1,0 +1,12 @@
+{
+  "_note": "PLACEHOLDER hook text written by the editor because transcript.json contains no speech (the clip is a plastering ASMR shot with no voice). Edit freely: each line is max 3 words, 'start'/'end' in seconds on clean.mp4, 'keywords' are always highlighted in yellow. If transcript.json ever contains words, build_timeline.py uses them instead of this file.",
+  "lines": [
+    {"start": 0.10, "end": 1.35, "text": "ככה מורחים שפכטל", "keywords": ["שפכטל"]},
+    {"start": 1.50, "end": 2.70, "text": "על תקרה", "keywords": []},
+    {"start": 2.90, "end": 4.00, "text": "בלי טיפה מיותרת", "keywords": ["מיותרת"]},
+    {"start": 4.15, "end": 5.70, "text": "תראו את הסיפוק", "keywords": ["הסיפוק"]},
+    {"start": 5.90, "end": 7.20, "text": "משיכה אחת", "keywords": ["אחת"]},
+    {"start": 7.35, "end": 8.60, "text": "חלקה לגמרי", "keywords": ["חלקה"]},
+    {"start": 8.75, "end": 9.85, "text": "שמרו לעבודה הבאה", "keywords": ["שמרו"]}
+  ]
+}

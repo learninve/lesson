@@ -1,0 +1,5 @@
+node_modules/
+remotion/public/clean.mp4
+remotion/out/
+*_ALTERED.mp4
+__pycache__/
