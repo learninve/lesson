@@ -40,7 +40,9 @@ export type ReelData = {
   introZoomTo?: number;
   zoomOrigin?: string;
   highlightActive?: boolean; // false: only `keyword` words turn yellow
-  outro?: {line1: string; line2: string; footer?: string};
+  outro?: {line1: string; line2: string; phone?: string; footer?: string};
+  outroFrames?: number;
+  result?: {before: string; after: string; endBg?: string; frames: number; beforeLabel: string; afterLabel: string};
 };
 
 const YELLOW = '#FFE600';
@@ -223,7 +225,7 @@ const EndCard: React.FC<{
   height: number;
   logo: string;
   logoRound: boolean;
-  outro?: {line1: string; line2: string; footer?: string};
+  outro?: {line1: string; line2: string; phone?: string; footer?: string};
 }> = ({fps, width, height, logo, logoRound, outro}) => {
   const frame = useCurrentFrame(); // local to the Sequence
   const fade = interpolate(frame, [0, 8], [0, 1], {extrapolateRight: 'clamp'});
@@ -284,7 +286,7 @@ const EndCard: React.FC<{
         style={{
           ...textStyle,
           position: 'absolute',
-          top: height * 0.56,
+          top: height * (outro?.phone ? 0.5 : 0.56),
           width: '100%',
           fontSize: 112,
           color: '#FFFFFF',
@@ -300,7 +302,7 @@ const EndCard: React.FC<{
           style={{
             ...textStyle,
             position: 'absolute',
-            top: height * 0.645,
+            top: height * (outro.phone ? 0.575 : 0.645),
             width: '100%',
             fontSize: 132,
             color: YELLOW,
@@ -330,21 +332,108 @@ const EndCard: React.FC<{
         {PHONE_DISPLAY}
       </a>
       )}
+      {outro?.phone ? (
+        <a
+          href={`tel:${outro.phone.replace(/\D/g, '')}`}
+          dir="ltr"
+          style={{
+            ...textStyle,
+            position: 'absolute',
+            top: height * 0.665,
+            width: '100%',
+            fontSize: 138,
+            color: '#FFFFFF',
+            letterSpacing: '0.04em',
+            textDecoration: 'none',
+            transform: `scale(${interpolate(spring({frame: frame - 18, fps, config: {damping: 10, stiffness: 200}}), [0, 1], [0.7, 1])})`,
+            opacity: interpolate(frame, [18, 24], [0, 1], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'}),
+          }}
+        >
+          {outro.phone}
+        </a>
+      ) : null}
       <div
         dir="rtl"
         style={{
           ...textStyle,
           position: 'absolute',
-          top: height * 0.76,
+          top: height * (outro?.phone ? 0.78 : 0.76),
           width: '100%',
           fontSize: 60,
           color: '#FFFFFF',
           WebkitTextStroke: '8px #000',
-          opacity: interpolate(frame, [18, 28], [0, 1], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'}),
+          opacity: interpolate(frame, [24, 34], [0, 1], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'}),
         }}
       >
         {outro ? outro.footer ?? '' : 'קולורטק · עבודה עברית'}
       </div>
+    </AbsoluteFill>
+  );
+};
+
+/** Real before/after split from two frames of the raw footage; "after" wipes in from the right. */
+const BeforeAfter: React.FC<{
+  result: NonNullable<ReelData['result']>;
+  fps: number;
+  width: number;
+  height: number;
+}> = ({result, fps, width, height}) => {
+  const frame = useCurrentFrame(); // local to the Sequence
+  const half = height / 2;
+  const push = interpolate(frame, [0, result.frames], [1, 1.07], {extrapolateRight: 'clamp'});
+  const reveal = interpolate(frame, [14, 30], [100, 0], {
+    easing: Easing.out(Easing.cubic),
+    extrapolateLeft: 'clamp',
+    extrapolateRight: 'clamp',
+  });
+  const pill = (bg: string, color: string, inFrame: number, text: string, top: number) => {
+    const e = spring({frame: frame - inFrame, fps, config: {damping: 11, stiffness: 200}});
+    return (
+      <div
+        dir="rtl"
+        style={{
+          position: 'absolute',
+          top,
+          right: 44,
+          padding: '4px 40px 10px',
+          borderRadius: 24,
+          backgroundColor: bg,
+          color,
+          fontFamily: `${FONT_FAMILY}, 'Rubik', 'Arial Hebrew', sans-serif`,
+          fontWeight: 900,
+          fontSize: 92,
+          lineHeight: 1.2,
+          boxShadow: '0 10px 26px rgba(0,0,0,0.5)',
+          transform: `scale(${interpolate(e, [0, 1], [0.6, 1])})`,
+          opacity: e,
+        }}
+      >
+        {text}
+      </div>
+    );
+  };
+  const imgStyle: React.CSSProperties = {width: '100%', height: '100%', objectFit: 'cover', transform: `scale(${push})`};
+  return (
+    <AbsoluteFill style={{backgroundColor: '#000'}}>
+      <div style={{position: 'absolute', top: 0, left: 0, width, height: half, overflow: 'hidden'}}>
+        <Img src={staticFile(result.before)} style={imgStyle} />
+      </div>
+      <div
+        style={{
+          position: 'absolute',
+          top: half,
+          left: 0,
+          width,
+          height: half,
+          overflow: 'hidden',
+          transform: `translateX(${reveal}%)`,
+        }}
+      >
+        <Img src={staticFile(result.after)} style={imgStyle} />
+      </div>
+      <div style={{position: 'absolute', top: half - 4, left: 0, width, height: 8, backgroundColor: YELLOW}} />
+      {pill('rgba(0,0,0,0.72)', '#FFFFFF', 4, result.beforeLabel, half - 150 - 80)}
+      {pill(YELLOW, '#111111', 22, result.afterLabel, height - 150 - 80)}
     </AbsoluteFill>
   );
 };
@@ -367,6 +456,9 @@ export const ViralReel: React.FC<{data: ReelData}> = ({data}) => {
   const logoFile = data.logo ?? 'logo.jpg';
   const logoRound = data.logoRound ?? true;
   const videoStyle: React.CSSProperties = {width: '100%', height: '100%', objectFit: 'cover'};
+  const resultFrames = data.result?.frames ?? 0;
+  const outroFrames = data.outroFrames ?? OUTRO_FRAMES;
+  const endFrom = mainFrames + resultFrames;
 
   return (
     <AbsoluteFill style={{backgroundColor: '#000'}}>
@@ -374,7 +466,7 @@ export const ViralReel: React.FC<{data: ReelData}> = ({data}) => {
         <Sequence from={0} durationInFrames={mainFrames} layout="none">
           <OffthreadVideo src={staticFile(videoFile)} style={videoStyle} />
         </Sequence>
-        <Sequence from={mainFrames} durationInFrames={OUTRO_FRAMES} layout="none">
+        <Sequence from={mainFrames} durationInFrames={resultFrames + outroFrames} layout="none">
           <Freeze frame={mainFrames - 1}>
             <OffthreadVideo src={staticFile(videoFile)} muted style={videoStyle} />
           </Freeze>
@@ -405,7 +497,25 @@ export const ViralReel: React.FC<{data: ReelData}> = ({data}) => {
           round={logoRound}
         />
       ) : null}
-      <Sequence from={mainFrames} durationInFrames={OUTRO_FRAMES} layout="none">
+      {data.result ? (
+        <Sequence from={mainFrames} durationInFrames={resultFrames} layout="none">
+          <BeforeAfter result={data.result} fps={fps} width={width} height={height} />
+        </Sequence>
+      ) : null}
+      {data.result && frame >= mainFrames && frame < endFrom ? (
+        <LogoBadge
+          frame={999}
+          fps={fps}
+          size={Math.round(width * 0.2)}
+          top={Math.round(height * 0.075)}
+          file={logoFile}
+          round={logoRound}
+        />
+      ) : null}
+      <Sequence from={endFrom} durationInFrames={outroFrames} layout="none">
+        {data.result?.endBg ? (
+          <Img src={staticFile(data.result.endBg)} style={{...videoStyle, position: 'absolute', top: 0, left: 0}} />
+        ) : null}
         <EndCard fps={fps} width={width} height={height} logo={logoFile} logoRound={logoRound} outro={data.outro} />
       </Sequence>
     </AbsoluteFill>

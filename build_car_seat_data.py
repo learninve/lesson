@@ -23,8 +23,7 @@ LINES = [
     (10.10, bounds[3] - 0.10, [("שנים", 1), ("של", 1), ("לכלוך", 1)]),
     (bounds[3] + 0.10, 15.20, [("חכו", 0), ("לתוצאה", 1)]),                      # 2nd extraction 12.8-17.47
     (15.20, bounds[4] - 0.07, [("בסוף...", 0)]),
-    (end_main - 3.0, 20.10, [("רוצים", 0), ("חידוש", 0), ("כזה?", 0)]),        # last 3 s -> end card
-    (20.10, end_main, [("שלחו", 1), ("הודעה", 1)]),
+    (end_main - 2.0, end_main - 0.1, [("והנה", 0), ("התוצאה...", 1)]),          # leads into the before/after shot
 ]
 
 chunks = []
@@ -49,7 +48,11 @@ data = {
     "captionSource": "build_car_seat_data.py", "chunks": chunks, "beats": beats, "audioBeats": [],
     "video": "car_seat_edit.mp4", "logo": "logo_nikayon.png", "logoRound": False,
     "introFrames": INTRO, "introZoomTo": 1.15, "zoomOrigin": "48% 60%", "highlightActive": False,
-    "outro": {"line1": "רוצים חידוש כזה?", "line2": "שלחו הודעה", "footer": "סיירת ניקיון · עבודה עברית"},
+    "result": {"before": "result_before.png", "after": "result_after.png", "endBg": "result_after_full.png", "frames": 90,
+               "beforeLabel": "לפני", "afterLabel": "אחרי"},
+    "outroFrames": 90,
+    "outro": {"line1": "רוצים חידוש כזה?", "line2": "שלחו הודעה", "phone": "055-771-8519",
+              "footer": "סיירת ניקיון · עבודה עברית"},
 }
 json.dump(data, open("remotion/src/data_car_seat.json", "w", encoding="utf-8"), ensure_ascii=False, indent=2)
 print(f"edited duration {dur:.3f}s = {frames} frames; segment starts {bounds}; beats(s) {[round(b/FPS,2) for b in beats]}")

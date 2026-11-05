@@ -115,46 +115,20 @@
     ],
     [
       {
-        "text": "רוצים",
-        "start": 18.467,
-        "end": 19.011,
+        "text": "והנה",
+        "start": 19.467,
+        "end": 20.417,
         "keyword": false,
-        "startFrame": 554,
-        "endFrame": 570
+        "startFrame": 584,
+        "endFrame": 612
       },
       {
-        "text": "חידוש",
-        "start": 19.011,
-        "end": 19.556,
-        "keyword": false,
-        "startFrame": 570,
-        "endFrame": 587
-      },
-      {
-        "text": "כזה?",
-        "start": 19.556,
-        "end": 20.1,
-        "keyword": false,
-        "startFrame": 587,
-        "endFrame": 603
-      }
-    ],
-    [
-      {
-        "text": "שלחו",
-        "start": 20.1,
-        "end": 20.783,
+        "text": "התוצאה...",
+        "start": 20.417,
+        "end": 21.367,
         "keyword": true,
-        "startFrame": 603,
-        "endFrame": 624
-      },
-      {
-        "text": "הודעה",
-        "start": 20.783,
-        "end": 21.467,
-        "keyword": true,
-        "startFrame": 624,
-        "endFrame": 644
+        "startFrame": 612,
+        "endFrame": 641
       }
     ]
   ],
@@ -164,8 +138,7 @@
     384,
     456,
     524,
-    554,
-    603
+    584
   ],
   "audioBeats": [],
   "video": "car_seat_edit.mp4",
@@ -175,9 +148,19 @@
   "introZoomTo": 1.15,
   "zoomOrigin": "48% 60%",
   "highlightActive": false,
+  "result": {
+    "before": "result_before.png",
+    "after": "result_after.png",
+    "endBg": "result_after_full.png",
+    "frames": 90,
+    "beforeLabel": "לפני",
+    "afterLabel": "אחרי"
+  },
+  "outroFrames": 90,
   "outro": {
     "line1": "רוצים חידוש כזה?",
     "line2": "שלחו הודעה",
+    "phone": "055-771-8519",
     "footer": "סיירת ניקיון · עבודה עברית"
   }
 }

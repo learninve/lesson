@@ -10,7 +10,7 @@ SEGS=("0 4 1" "4 17 2.5" "21 30 2.5" "33 40 1.5" "42 48 1.5")
 V=""; A=""; CAT=""
 for i in "${!SEGS[@]}"; do
   read -r s e sp <<<"${SEGS[$i]}"
-  V+="[0:v]trim=${s}:${e},setpts=(PTS-STARTPTS)/${sp},scale=1080:1920:flags=lanczos,setsar=1,fps=30[v$i];"
+  V+="[0:v]trim=${s}:${e},setpts=(PTS-STARTPTS)/${sp},scale=1080:1920:flags=lanczos,eq=contrast=1.05:saturation=1.12,unsharp=5:5:0.6,setsar=1,fps=30[v$i];"
   # 12 ms fades avoid clicks at the joins
   D=$(awk -v s="$s" -v e="$e" -v sp="$sp" 'BEGIN{printf "%.4f",(e-s)/sp-0.012}')
   A+="[0:a]atrim=${s}:${e},asetpts=PTS-STARTPTS,aresample=48000,atempo=${sp},afade=t=in:d=0.012,afade=t=out:st=${D}:d=0.012[a$i];"

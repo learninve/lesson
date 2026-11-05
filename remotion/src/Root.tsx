@@ -19,7 +19,7 @@ export const RemotionRoot: React.FC = () => {
       <Composition
         id="CarSeat"
         component={ViralReel}
-        durationInFrames={carSeat.durationInFrames + OUTRO_FRAMES}
+        durationInFrames={carSeat.durationInFrames + carSeat.result.frames + carSeat.outroFrames}
         fps={carSeat.fps}
         width={carSeat.width}
         height={carSeat.height}
