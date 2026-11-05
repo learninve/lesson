@@ -2,7 +2,10 @@ import React, {useEffect} from 'react';
 import {
   AbsoluteFill,
   Easing,
+  Freeze,
+  Img,
   OffthreadVideo,
+  Sequence,
   interpolate,
   spring,
   staticFile,
@@ -37,6 +40,9 @@ const INTRO_ZOOM_TO = 1.12;
 const PUNCH_ZOOM = 1.15;
 const CAPTION_TOP = 0.65; // safe zone: 65 % from the top
 const MAX_WORDS = 3;
+export const OUTRO_FRAMES = 60; // 2 s end card: logo + "להצעת מחיר" + phone
+const PHONE = '0533237036';
+const PHONE_DISPLAY = '053-323-7036';
 
 /**
  * Camera scale for a frame:
@@ -135,18 +141,148 @@ const Captions: React.FC<{chunks: Word[][]; frame: number; fps: number; height: 
   );
 };
 
+/** Round Kolortek badge, top-centre (clear of the TikTok/Reels UI), springs in at the start. */
+const LogoBadge: React.FC<{frame: number; fps: number; size: number; top: number}> = ({frame, fps, size, top}) => {
+  const enter = spring({frame, fps, config: {damping: 12, stiffness: 160}});
+  return (
+    <div
+      style={{
+        position: 'absolute',
+        top,
+        left: '50%',
+        width: size,
+        height: size,
+        borderRadius: '50%',
+        overflow: 'hidden',
+        transform: `translateX(-50%) scale(${interpolate(enter, [0, 1], [0.6, 1])})`,
+        opacity: enter,
+        boxShadow: '0 12px 30px rgba(0,0,0,0.45)',
+        border: '4px solid rgba(255,255,255,0.85)',
+        backgroundColor: '#fff',
+      }}
+    >
+      <Img
+        src={staticFile('logo.jpg')}
+        style={{width: '106%', height: '106%', marginLeft: '-3%', marginTop: '-3%', objectFit: 'cover'}}
+      />
+    </div>
+  );
+};
+
+/** End card: dark overlay, big logo, CTA line and phone number in brand yellow. */
+const EndCard: React.FC<{fps: number; width: number; height: number}> = ({fps, width, height}) => {
+  const frame = useCurrentFrame(); // local to the Sequence
+  const fade = interpolate(frame, [0, 8], [0, 1], {extrapolateRight: 'clamp'});
+  const logoIn = spring({frame, fps, config: {damping: 11, stiffness: 150}});
+  const textIn = spring({frame: frame - 6, fps, config: {damping: 12, stiffness: 170}});
+  const phoneIn = spring({frame: frame - 12, fps, config: {damping: 10, stiffness: 200}});
+  const logoSize = Math.round(width * 0.46);
+  const textStyle: React.CSSProperties = {
+    fontFamily: `${FONT_FAMILY}, 'Rubik', 'Arial Hebrew', sans-serif`,
+    fontWeight: 900,
+    direction: 'rtl',
+    textAlign: 'center',
+    WebkitTextStroke: '12px #000',
+    paintOrder: 'stroke fill',
+    textShadow: '0 10px 22px rgba(0,0,0,0.65)',
+    whiteSpace: 'nowrap',
+  };
+  return (
+    <AbsoluteFill style={{opacity: fade, justifyContent: 'center', alignItems: 'center'}}>
+      <AbsoluteFill style={{backgroundColor: 'rgba(20, 28, 12, 0.72)'}} />
+      <div
+        style={{
+          position: 'absolute',
+          top: height * 0.17,
+          left: '50%',
+          width: logoSize,
+          height: logoSize,
+          borderRadius: '50%',
+          overflow: 'hidden',
+          transform: `translateX(-50%) scale(${interpolate(logoIn, [0, 1], [0.5, 1])})`,
+          boxShadow: '0 20px 50px rgba(0,0,0,0.6)',
+          border: '8px solid rgba(255,255,255,0.9)',
+          backgroundColor: '#fff',
+        }}
+      >
+        <Img
+          src={staticFile('logo.jpg')}
+          style={{width: '106%', height: '106%', marginLeft: '-3%', marginTop: '-3%', objectFit: 'cover'}}
+        />
+      </div>
+      <div
+        dir="rtl"
+        style={{
+          ...textStyle,
+          position: 'absolute',
+          top: height * 0.56,
+          width: '100%',
+          fontSize: 112,
+          color: '#FFFFFF',
+          transform: `translateY(${interpolate(textIn, [0, 1], [40, 0])}px)`,
+          opacity: textIn,
+        }}
+      >
+        להצעת מחיר
+      </div>
+      <a
+        href={`tel:${PHONE}`}
+        dir="ltr"
+        style={{
+          ...textStyle,
+          position: 'absolute',
+          top: height * 0.645,
+          width: '100%',
+          fontSize: 132,
+          color: YELLOW,
+          letterSpacing: '0.04em',
+          textDecoration: 'none',
+          transform: `scale(${interpolate(phoneIn, [0, 1], [0.7, 1])})`,
+          opacity: phoneIn,
+        }}
+      >
+        {PHONE_DISPLAY}
+      </a>
+      <div
+        dir="rtl"
+        style={{
+          ...textStyle,
+          position: 'absolute',
+          top: height * 0.76,
+          width: '100%',
+          fontSize: 60,
+          color: '#FFFFFF',
+          WebkitTextStroke: '8px #000',
+          opacity: interpolate(frame, [18, 28], [0, 1], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'}),
+        }}
+      >
+        קולורטק · עבודה עברית
+      </div>
+    </AbsoluteFill>
+  );
+};
+
 export const ViralReel: React.FC<{data: ReelData}> = ({data}) => {
   const frame = useCurrentFrame();
-  const {fps, height} = useVideoConfig();
+  const {fps, height, width} = useVideoConfig();
   useEffect(() => {
     loadHeebo();
   }, []);
-  const scale = useCameraScale(frame, data.beats, fps);
+  const mainFrames = data.durationInFrames;
+  const scale = useCameraScale(Math.min(frame, mainFrames - 1), data.beats, fps);
+  const videoStyle: React.CSSProperties = {width: '100%', height: '100%', objectFit: 'cover'};
 
   return (
     <AbsoluteFill style={{backgroundColor: '#000'}}>
       <AbsoluteFill style={{transform: `scale(${scale})`, transformOrigin: '50% 45%'}}>
-        <OffthreadVideo src={staticFile('clean.mp4')} style={{width: '100%', height: '100%', objectFit: 'cover'}} />
+        <Sequence from={0} durationInFrames={mainFrames} layout="none">
+          <OffthreadVideo src={staticFile('clean.mp4')} style={videoStyle} />
+        </Sequence>
+        <Sequence from={mainFrames} durationInFrames={OUTRO_FRAMES} layout="none">
+          <Freeze frame={mainFrames - 1}>
+            <OffthreadVideo src={staticFile('clean.mp4')} muted style={videoStyle} />
+          </Freeze>
+        </Sequence>
       </AbsoluteFill>
       {/* subtle vignette so white text stays readable on the bright ceiling */}
       <AbsoluteFill
@@ -157,6 +293,12 @@ export const ViralReel: React.FC<{data: ReelData}> = ({data}) => {
         }}
       />
       <Captions chunks={data.chunks} frame={frame} fps={fps} height={height} />
+      {frame < mainFrames ? (
+        <LogoBadge frame={frame} fps={fps} size={Math.round(width * 0.2)} top={Math.round(height * 0.075)} />
+      ) : null}
+      <Sequence from={mainFrames} durationInFrames={OUTRO_FRAMES} layout="none">
+        <EndCard fps={fps} width={width} height={height} />
+      </Sequence>
     </AbsoluteFill>
   );
 };

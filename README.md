@@ -35,9 +35,15 @@ HF is allowed if a spoken clip is used.
   that toggle between 1.00 and 1.15 on every beat (audio stroke onsets ∪ caption
   line starts, deduped within 8 frames; see `beats` in `data.json`).
 
+### Branding
+* `remotion/public/logo.jpg` (Kolortek badge) is shown as a round watermark, top-centre,
+  for the whole clip (springs in on frame 0).
+* A 2 s end card (`OUTRO_FRAMES = 60`, frozen last frame + dark overlay) shows the badge
+  large, "להצעת מחיר" and the phone number 053-323-7036 in `#FFE600`.
+
 ## 4. Render → `viral_output.mp4`
 ```
 cd remotion && npx remotion render src/index.ts ViralReel ../viral_output.mp4 \
   --codec h264 --crf 18 --browser-executable /opt/pw-browsers/chromium
 ```
-Output: 1080x1920, 30 fps, 10.0 s, -14.2 LUFS.
+Output: 1080x1920, 30 fps, 12.0 s (10 s clip + 2 s end card), -14 LUFS.

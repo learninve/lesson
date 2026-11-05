@@ -1,6 +1,6 @@
 import React from 'react';
 import {Composition} from 'remotion';
-import {ViralReel} from './ViralReel';
+import {OUTRO_FRAMES, ViralReel} from './ViralReel';
 import data from './data.json';
 
 export const RemotionRoot: React.FC = () => {
@@ -8,7 +8,7 @@ export const RemotionRoot: React.FC = () => {
     <Composition
       id="ViralReel"
       component={ViralReel}
-      durationInFrames={data.durationInFrames}
+      durationInFrames={data.durationInFrames + OUTRO_FRAMES}
       fps={data.fps}
       width={data.width}
       height={data.height}
