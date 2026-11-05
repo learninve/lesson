@@ -32,6 +32,15 @@ export type ReelData = {
   chunks: Word[][];
   beats: number[];
   audioBeats: number[];
+  // optional per-video overrides (defaults reproduce the original viral_output.mp4)
+  video?: string; // file in public/
+  logo?: string; // file in public/
+  logoRound?: boolean; // false for logos that already have their own (transparent) round shape
+  introFrames?: number;
+  introZoomTo?: number;
+  zoomOrigin?: string;
+  highlightActive?: boolean; // false: only `keyword` words turn yellow
+  outro?: {line1: string; line2: string; footer?: string};
 };
 
 const YELLOW = '#FFE600';
@@ -50,17 +59,25 @@ const PHONE_DISPLAY = '053-323-7036';
  *  - after that every beat toggles a jump cut between 1.0 and 1.15, with a
  *    tiny spring settle so the cut feels snappy instead of static.
  */
-const useCameraScale = (frame: number, beats: number[], fps: number) => {
-  if (frame < INTRO_ZOOM_FRAMES) {
-    return interpolate(frame, [0, INTRO_ZOOM_FRAMES], [1, INTRO_ZOOM_TO], {
+const useCameraScale = (
+  frame: number,
+  beats: number[],
+  fps: number,
+  introFrames = INTRO_ZOOM_FRAMES,
+  introZoomTo = INTRO_ZOOM_TO,
+) => {
+  if (frame < introFrames) {
+    return interpolate(frame, [0, introFrames], [1, introZoomTo], {
       easing: Easing.out(Easing.quad),
       extrapolateRight: 'clamp',
     });
   }
-  const cuts = beats.filter((b) => b >= INTRO_ZOOM_FRAMES);
+  const cuts = beats.filter((b) => b >= introFrames);
   const passed = cuts.filter((b) => b <= frame);
-  if (passed.length === 0) return INTRO_ZOOM_TO; // hold the push-in until the first cut
-  const punchedIn = passed.length % 2 === 1;
+  if (passed.length === 0) return introZoomTo; // hold the push-in until the first cut
+  // if the push-in already ended at punch level, the first cut zooms OUT so it is actually visible
+  const startsPunched = introZoomTo >= PUNCH_ZOOM;
+  const punchedIn = startsPunched ? passed.length % 2 === 0 : passed.length % 2 === 1;
   const lastCut = passed[passed.length - 1];
   const settle = spring({frame: frame - lastCut, fps, config: {damping: 14, stiffness: 220, mass: 0.6}});
   const from = punchedIn ? PUNCH_ZOOM * 1.03 : 1.02; // never below 1.0 (no black borders)
@@ -68,9 +85,14 @@ const useCameraScale = (frame: number, beats: number[], fps: number) => {
   return interpolate(settle, [0, 1], [from, to]);
 };
 
-const WordSpan: React.FC<{word: Word; frame: number; fps: number}> = ({word, frame, fps}) => {
+const WordSpan: React.FC<{word: Word; frame: number; fps: number; highlightActive: boolean}> = ({
+  word,
+  frame,
+  fps,
+  highlightActive,
+}) => {
   const active = frame >= word.startFrame && frame < word.endFrame;
-  const highlighted = active || word.keyword;
+  const highlighted = (highlightActive && active) || word.keyword;
   // Pop: springs from 1 -> ~1.18 and settles at 1.1 while the word is being said.
   const pop = spring({frame: frame - word.startFrame, fps, config: {damping: 9, stiffness: 260, mass: 0.5}});
   const scale = active ? interpolate(pop, [0, 1], [1, 1.1]) : word.keyword && frame >= word.endFrame ? 1.04 : 1;
@@ -94,12 +116,13 @@ const WordSpan: React.FC<{word: Word; frame: number; fps: number}> = ({word, fra
   );
 };
 
-const Captions: React.FC<{chunks: Word[][]; frame: number; fps: number; height: number}> = ({
-  chunks,
-  frame,
-  fps,
-  height,
-}) => {
+const Captions: React.FC<{
+  chunks: Word[][];
+  frame: number;
+  fps: number;
+  height: number;
+  highlightActive: boolean;
+}> = ({chunks, frame, fps, height, highlightActive}) => {
   const chunk = chunks.find((c) => frame >= c[0].startFrame && frame < c[c.length - 1].endFrame);
   if (!chunk) return null;
   const visible = chunk.slice(0, MAX_WORDS);
@@ -135,15 +158,39 @@ const Captions: React.FC<{chunks: Word[][]; frame: number; fps: number; height: 
       }}
     >
       {visible.map((w, i) => (
-        <WordSpan key={`${w.startFrame}-${i}`} word={w} frame={frame} fps={fps} />
+        <WordSpan key={`${w.startFrame}-${i}`} word={w} frame={frame} fps={fps} highlightActive={highlightActive} />
       ))}
     </div>
   );
 };
 
 /** Round Kolortek badge, top-centre (clear of the TikTok/Reels UI), springs in at the start. */
-const LogoBadge: React.FC<{frame: number; fps: number; size: number; top: number}> = ({frame, fps, size, top}) => {
+const LogoBadge: React.FC<{
+  frame: number;
+  fps: number;
+  size: number;
+  top: number;
+  file: string;
+  round: boolean;
+}> = ({frame, fps, size, top, file, round}) => {
   const enter = spring({frame, fps, config: {damping: 12, stiffness: 160}});
+  if (!round) {
+    return (
+      <Img
+        src={staticFile(file)}
+        style={{
+          position: 'absolute',
+          top,
+          left: '50%',
+          width: size,
+          height: size,
+          transform: `translateX(-50%) scale(${interpolate(enter, [0, 1], [0.6, 1])})`,
+          opacity: enter,
+          filter: 'drop-shadow(0 12px 24px rgba(0,0,0,0.5))',
+        }}
+      />
+    );
+  }
   return (
     <div
       style={{
@@ -162,7 +209,7 @@ const LogoBadge: React.FC<{frame: number; fps: number; size: number; top: number
       }}
     >
       <Img
-        src={staticFile('logo.jpg')}
+        src={staticFile(file)}
         style={{width: '106%', height: '106%', marginLeft: '-3%', marginTop: '-3%', objectFit: 'cover'}}
       />
     </div>
@@ -170,7 +217,14 @@ const LogoBadge: React.FC<{frame: number; fps: number; size: number; top: number
 };
 
 /** End card: dark overlay, big logo, CTA line and phone number in brand yellow. */
-const EndCard: React.FC<{fps: number; width: number; height: number}> = ({fps, width, height}) => {
+const EndCard: React.FC<{
+  fps: number;
+  width: number;
+  height: number;
+  logo: string;
+  logoRound: boolean;
+  outro?: {line1: string; line2: string; footer?: string};
+}> = ({fps, width, height, logo, logoRound, outro}) => {
   const frame = useCurrentFrame(); // local to the Sequence
   const fade = interpolate(frame, [0, 8], [0, 1], {extrapolateRight: 'clamp'});
   const logoIn = spring({frame, fps, config: {damping: 11, stiffness: 150}});
@@ -190,26 +244,41 @@ const EndCard: React.FC<{fps: number; width: number; height: number}> = ({fps, w
   return (
     <AbsoluteFill style={{opacity: fade, justifyContent: 'center', alignItems: 'center'}}>
       <AbsoluteFill style={{backgroundColor: 'rgba(20, 28, 12, 0.72)'}} />
-      <div
-        style={{
-          position: 'absolute',
-          top: height * 0.17,
-          left: '50%',
-          width: logoSize,
-          height: logoSize,
-          borderRadius: '50%',
-          overflow: 'hidden',
-          transform: `translateX(-50%) scale(${interpolate(logoIn, [0, 1], [0.5, 1])})`,
-          boxShadow: '0 20px 50px rgba(0,0,0,0.6)',
-          border: '8px solid rgba(255,255,255,0.9)',
-          backgroundColor: '#fff',
-        }}
-      >
+      {logoRound ? (
+        <div
+          style={{
+            position: 'absolute',
+            top: height * 0.17,
+            left: '50%',
+            width: logoSize,
+            height: logoSize,
+            borderRadius: '50%',
+            overflow: 'hidden',
+            transform: `translateX(-50%) scale(${interpolate(logoIn, [0, 1], [0.5, 1])})`,
+            boxShadow: '0 20px 50px rgba(0,0,0,0.6)',
+            border: '8px solid rgba(255,255,255,0.9)',
+            backgroundColor: '#fff',
+          }}
+        >
+          <Img
+            src={staticFile(logo)}
+            style={{width: '106%', height: '106%', marginLeft: '-3%', marginTop: '-3%', objectFit: 'cover'}}
+          />
+        </div>
+      ) : (
         <Img
-          src={staticFile('logo.jpg')}
-          style={{width: '106%', height: '106%', marginLeft: '-3%', marginTop: '-3%', objectFit: 'cover'}}
+          src={staticFile(logo)}
+          style={{
+            position: 'absolute',
+            top: height * 0.15,
+            left: '50%',
+            width: logoSize,
+            height: logoSize,
+            transform: `translateX(-50%) scale(${interpolate(logoIn, [0, 1], [0.5, 1])})`,
+            filter: 'drop-shadow(0 20px 40px rgba(0,0,0,0.6))',
+          }}
         />
-      </div>
+      )}
       <div
         dir="rtl"
         style={{
@@ -223,8 +292,25 @@ const EndCard: React.FC<{fps: number; width: number; height: number}> = ({fps, w
           opacity: textIn,
         }}
       >
-        להצעת מחיר
+        {outro ? outro.line1 : 'להצעת מחיר'}
       </div>
+      {outro ? (
+        <div
+          dir="rtl"
+          style={{
+            ...textStyle,
+            position: 'absolute',
+            top: height * 0.645,
+            width: '100%',
+            fontSize: 132,
+            color: YELLOW,
+            transform: `scale(${interpolate(phoneIn, [0, 1], [0.7, 1])})`,
+            opacity: phoneIn,
+          }}
+        >
+          {outro.line2}
+        </div>
+      ) : (
       <a
         href={`tel:${PHONE}`}
         dir="ltr"
@@ -243,6 +329,7 @@ const EndCard: React.FC<{fps: number; width: number; height: number}> = ({fps, w
       >
         {PHONE_DISPLAY}
       </a>
+      )}
       <div
         dir="rtl"
         style={{
@@ -256,7 +343,7 @@ const EndCard: React.FC<{fps: number; width: number; height: number}> = ({fps, w
           opacity: interpolate(frame, [18, 28], [0, 1], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'}),
         }}
       >
-        קולורטק · עבודה עברית
+        {outro ? outro.footer ?? '' : 'קולורטק · עבודה עברית'}
       </div>
     </AbsoluteFill>
   );
@@ -269,18 +356,27 @@ export const ViralReel: React.FC<{data: ReelData}> = ({data}) => {
     loadHeebo();
   }, []);
   const mainFrames = data.durationInFrames;
-  const scale = useCameraScale(Math.min(frame, mainFrames - 1), data.beats, fps);
+  const scale = useCameraScale(
+    Math.min(frame, mainFrames - 1),
+    data.beats,
+    fps,
+    data.introFrames,
+    data.introZoomTo,
+  );
+  const videoFile = data.video ?? 'clean.mp4';
+  const logoFile = data.logo ?? 'logo.jpg';
+  const logoRound = data.logoRound ?? true;
   const videoStyle: React.CSSProperties = {width: '100%', height: '100%', objectFit: 'cover'};
 
   return (
     <AbsoluteFill style={{backgroundColor: '#000'}}>
-      <AbsoluteFill style={{transform: `scale(${scale})`, transformOrigin: '50% 45%'}}>
+      <AbsoluteFill style={{transform: `scale(${scale})`, transformOrigin: data.zoomOrigin ?? '50% 45%'}}>
         <Sequence from={0} durationInFrames={mainFrames} layout="none">
-          <OffthreadVideo src={staticFile('clean.mp4')} style={videoStyle} />
+          <OffthreadVideo src={staticFile(videoFile)} style={videoStyle} />
         </Sequence>
         <Sequence from={mainFrames} durationInFrames={OUTRO_FRAMES} layout="none">
           <Freeze frame={mainFrames - 1}>
-            <OffthreadVideo src={staticFile('clean.mp4')} muted style={videoStyle} />
+            <OffthreadVideo src={staticFile(videoFile)} muted style={videoStyle} />
           </Freeze>
         </Sequence>
       </AbsoluteFill>
@@ -292,12 +388,25 @@ export const ViralReel: React.FC<{data: ReelData}> = ({data}) => {
           pointerEvents: 'none',
         }}
       />
-      <Captions chunks={data.chunks} frame={frame} fps={fps} height={height} />
+      <Captions
+        chunks={data.chunks}
+        frame={frame}
+        fps={fps}
+        height={height}
+        highlightActive={data.highlightActive ?? true}
+      />
       {frame < mainFrames ? (
-        <LogoBadge frame={frame} fps={fps} size={Math.round(width * 0.2)} top={Math.round(height * 0.075)} />
+        <LogoBadge
+          frame={frame}
+          fps={fps}
+          size={Math.round(width * 0.2)}
+          top={Math.round(height * 0.075)}
+          file={logoFile}
+          round={logoRound}
+        />
       ) : null}
       <Sequence from={mainFrames} durationInFrames={OUTRO_FRAMES} layout="none">
-        <EndCard fps={fps} width={width} height={height} />
+        <EndCard fps={fps} width={width} height={height} logo={logoFile} logoRound={logoRound} outro={data.outro} />
       </Sequence>
     </AbsoluteFill>
   );

@@ -1,0 +1,183 @@
+{
+  "fps": 30,
+  "width": 1080,
+  "height": 1920,
+  "durationInFrames": 644,
+  "captionSource": "build_car_seat_data.py",
+  "chunks": [
+    [
+      {
+        "text": "הייתם",
+        "start": 0.0,
+        "end": 0.75,
+        "keyword": false,
+        "startFrame": 0,
+        "endFrame": 22
+      },
+      {
+        "text": "יושבים",
+        "start": 0.75,
+        "end": 1.5,
+        "keyword": false,
+        "startFrame": 22,
+        "endFrame": 45
+      }
+    ],
+    [
+      {
+        "text": "על",
+        "start": 1.5,
+        "end": 2.0,
+        "keyword": false,
+        "startFrame": 45,
+        "endFrame": 60
+      },
+      {
+        "text": "מושב",
+        "start": 2.0,
+        "end": 2.5,
+        "keyword": true,
+        "startFrame": 60,
+        "endFrame": 75
+      },
+      {
+        "text": "כזה?",
+        "start": 2.5,
+        "end": 3.0,
+        "keyword": true,
+        "startFrame": 75,
+        "endFrame": 90
+      }
+    ],
+    [
+      {
+        "text": "מוציאים",
+        "start": 9.3,
+        "end": 10.1,
+        "keyword": false,
+        "startFrame": 279,
+        "endFrame": 303
+      }
+    ],
+    [
+      {
+        "text": "שנים",
+        "start": 10.1,
+        "end": 10.967,
+        "keyword": true,
+        "startFrame": 303,
+        "endFrame": 329
+      },
+      {
+        "text": "של",
+        "start": 10.967,
+        "end": 11.833,
+        "keyword": true,
+        "startFrame": 329,
+        "endFrame": 355
+      },
+      {
+        "text": "לכלוך",
+        "start": 11.833,
+        "end": 12.7,
+        "keyword": true,
+        "startFrame": 355,
+        "endFrame": 381
+      }
+    ],
+    [
+      {
+        "text": "חכו",
+        "start": 12.9,
+        "end": 14.05,
+        "keyword": false,
+        "startFrame": 387,
+        "endFrame": 422
+      },
+      {
+        "text": "לתוצאה",
+        "start": 14.05,
+        "end": 15.2,
+        "keyword": true,
+        "startFrame": 422,
+        "endFrame": 456
+      }
+    ],
+    [
+      {
+        "text": "בסוף...",
+        "start": 15.2,
+        "end": 17.397,
+        "keyword": false,
+        "startFrame": 456,
+        "endFrame": 522
+      }
+    ],
+    [
+      {
+        "text": "רוצים",
+        "start": 18.467,
+        "end": 19.011,
+        "keyword": false,
+        "startFrame": 554,
+        "endFrame": 570
+      },
+      {
+        "text": "חידוש",
+        "start": 19.011,
+        "end": 19.556,
+        "keyword": false,
+        "startFrame": 570,
+        "endFrame": 587
+      },
+      {
+        "text": "כזה?",
+        "start": 19.556,
+        "end": 20.1,
+        "keyword": false,
+        "startFrame": 587,
+        "endFrame": 603
+      }
+    ],
+    [
+      {
+        "text": "שלחו",
+        "start": 20.1,
+        "end": 20.783,
+        "keyword": true,
+        "startFrame": 603,
+        "endFrame": 624
+      },
+      {
+        "text": "הודעה",
+        "start": 20.783,
+        "end": 21.467,
+        "keyword": true,
+        "startFrame": 624,
+        "endFrame": 644
+      }
+    ]
+  ],
+  "beats": [
+    276,
+    303,
+    384,
+    456,
+    524,
+    554,
+    603
+  ],
+  "audioBeats": [],
+  "video": "car_seat_edit.mp4",
+  "logo": "logo_nikayon.png",
+  "logoRound": false,
+  "introFrames": 120,
+  "introZoomTo": 1.15,
+  "zoomOrigin": "48% 60%",
+  "highlightActive": false,
+  "outro": {
+    "line1": "רוצים חידוש כזה?",
+    "line2": "שלחו הודעה",
+    "footer": "סיירת ניקיון · עבודה עברית"
+  }
+}
