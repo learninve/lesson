@@ -1,0 +1,1 @@
+loudnorm=I=-14:TP=-1.5:LRA=11:measured_I=-14.18:measured_TP=-1.00:measured_LRA=2.10:measured_thresh=-24.18:offset=-0.77:linear=true:print_format=summary

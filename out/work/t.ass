@@ -1,0 +1,20 @@
+[Script Info]
+ScriptType: v4.00+
+PlayResX: 1080
+PlayResY: 1920
+WrapStyle: 2
+ScaledBorderAndShadow: yes
+
+[V4+ Styles]
+Format: Name,Fontname,Fontsize,PrimaryColour,SecondaryColour,OutlineColour,BackColour,Bold,Italic,Underline,StrikeOut,ScaleX,ScaleY,Spacing,Angle,BorderStyle,Outline,Shadow,Alignment,MarginL,MarginR,MarginV,Encoding
+Style: Hook,Heebo,118,&H00FFFFFF,&H00FFFFFF,&H00000000,&H99000000,1,0,0,0,100,100,0,0,1,6,3,5,60,60,0,-1
+Style: Sub,Heebo,80,&H00FFFFFF,&H00FFFFFF,&H00000000,&H99000000,1,0,0,0,100,100,0,0,1,5,3,5,60,60,0,-1
+Style: Brand,Heebo,58,&H00FFFFFF,&H00FFFFFF,&H00000000,&H99000000,1,0,0,0,100,100,0,0,1,5,3,5,40,40,0,-1
+Style: Cta,Heebo,68,&H00FFFFFF,&H00FFFFFF,&H00000000,&H99000000,1,0,0,0,100,100,0,0,1,6,3,5,60,60,0,-1
+
+[Events]
+Format: Layer,Start,End,Style,Name,MarginL,MarginR,MarginV,Effect,Text
+Dialogue: 0,0:00:00.00,0:00:02.50,Hook,,0,0,0,,{\pos(540,385)\fad(200,200)\fscx92\fscy92\t(0,200,\fscx100\fscy100)}ככה מתקנים קיר\Nלפני צבע
+Dialogue: 0,0:00:02.50,0:00:05.30,Sub,,0,0,0,,{\pos(540,400)\fad(200,200)\fscx92\fscy92\t(0,200,\fscx100\fscy100)}שפכטל + החלקה =\Nקיר חלק כמו חדש
+Dialogue: 0,0:00:05.50,0:00:07.30,Brand,,0,0,0,,{\pos(540,1300)\fad(200,200)\fscx92\fscy92\t(0,200,\fscx100\fscy100)}קולורטק | צבע • שפכטל • החלקת קירות
+Dialogue: 0,0:00:05.50,0:00:07.30,Cta,,0,0,0,,{\pos(540,1395)\fad(200,200)\fscx92\fscy92\t(0,200,\fscx100\fscy100)}שלחו הודעה להצעת מחיר
