@@ -5,6 +5,7 @@ import data from './data.json';
 import carSeat from './data_car_seat.json';
 import board from './data_board.json';
 import {Voucher, voucherDefaults} from './Voucher';
+import {Cover, coverDefaults} from './Cover';
 
 export const RemotionRoot: React.FC = () => {
   return (
@@ -38,6 +39,7 @@ export const RemotionRoot: React.FC = () => {
       />
       <Composition id="VoucherStory" component={Voucher} durationInFrames={1} fps={30} width={1080} height={1920} defaultProps={voucherDefaults} />
       <Composition id="VoucherFeed" component={Voucher} durationInFrames={1} fps={30} width={1080} height={1350} defaultProps={voucherDefaults} />
+      <Composition id="Cover" component={Cover} durationInFrames={1} fps={30} width={1080} height={1920} defaultProps={coverDefaults} />
     </>
   );
 };
