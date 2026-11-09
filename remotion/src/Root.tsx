@@ -4,6 +4,7 @@ import {OUTRO_FRAMES, ViralReel} from './ViralReel';
 import data from './data.json';
 import carSeat from './data_car_seat.json';
 import board from './data_board.json';
+import {Voucher, voucherDefaults} from './Voucher';
 
 export const RemotionRoot: React.FC = () => {
   return (
@@ -35,6 +36,8 @@ export const RemotionRoot: React.FC = () => {
         height={board.height}
         defaultProps={{data: board}}
       />
+      <Composition id="VoucherStory" component={Voucher} durationInFrames={1} fps={30} width={1080} height={1920} defaultProps={voucherDefaults} />
+      <Composition id="VoucherFeed" component={Voucher} durationInFrames={1} fps={30} width={1080} height={1350} defaultProps={voucherDefaults} />
     </>
   );
 };
