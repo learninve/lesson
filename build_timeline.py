@@ -1,4 +1,7 @@
-"""Step 3 (data): turn transcript.json (+ captions.json fallback) and the audio
+"""Step 3 (data): turn transcript.json (+ captions.json fallback)
+usage: build_timeline.py [video] [out.json] [captions.json] [transcript.json]
+A captions file may carry an "overrides" object that is merged into the data
+(video/logo/outro/... – see ReelData in ViralReel.tsx). and the audio
 levels of clean.mp4 into remotion/src/data.json for the ViralReel composition.
 
 - words: word-level cues (start/end seconds -> frames), grouped into caption
@@ -12,6 +15,8 @@ import numpy as np
 FPS = 30
 VIDEO = sys.argv[1] if len(sys.argv) > 1 else "clean.mp4"
 OUT = sys.argv[2] if len(sys.argv) > 2 else "remotion/src/data.json"
+CAPTIONS = sys.argv[3] if len(sys.argv) > 3 else "captions.json"
+TRANSCRIPT = sys.argv[4] if len(sys.argv) > 4 else "transcript.json"
 
 def probe_duration(path):
     return float(subprocess.check_output(["ffprobe", "-v", "error", "-show_entries", "format=duration",
@@ -51,7 +56,7 @@ def chunk_words(words, max_words=3, max_gap=0.6):
 
 duration = probe_duration(VIDEO)
 duration_frames = int(round(duration * FPS))
-tr = json.load(open("transcript.json", encoding="utf-8"))
+tr = json.load(open(TRANSCRIPT, encoding="utf-8"))
 source = "transcript.json"
 words = []
 if tr.get("words"):
@@ -59,8 +64,8 @@ if tr.get("words"):
         words.append({"text": w["word"], "start": w["start"], "end": w["end"], "keyword": False})
     chunks = chunk_words(words)
 else:
-    source = "captions.json"
-    cap = json.load(open("captions.json", encoding="utf-8"))
+    source = CAPTIONS
+    cap = json.load(open(CAPTIONS, encoding="utf-8"))
     chunks = []
     for line in cap["lines"]:
         toks = line["text"].split()
@@ -92,6 +97,8 @@ data = {
     "beats": beats,
     "audioBeats": audio_beats,
 }
+if source != "transcript.json":
+    data.update(cap.get("overrides", {}))
 json.dump(data, open(OUT, "w", encoding="utf-8"), ensure_ascii=False, indent=2)
 print(f"duration={duration:.2f}s frames={duration_frames} source={source} chunks={len(chunks)} words={len(words)}")
 print("audio onsets (s):", [round(b / FPS, 2) for b in audio_beats])

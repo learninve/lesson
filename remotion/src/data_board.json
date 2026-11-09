@@ -1,0 +1,287 @@
+{
+  "fps": 30,
+  "width": 1080,
+  "height": 1920,
+  "durationInFrames": 321,
+  "captionSource": "captions_board.json",
+  "chunks": [
+    [
+      {
+        "text": "רואים",
+        "start": 0.1,
+        "end": 0.4,
+        "keyword": false,
+        "startFrame": 3,
+        "endFrame": 12
+      },
+      {
+        "text": "את",
+        "start": 0.4,
+        "end": 0.7,
+        "keyword": false,
+        "startFrame": 12,
+        "endFrame": 21
+      },
+      {
+        "text": "הקצה?",
+        "start": 0.7,
+        "end": 1.0,
+        "keyword": true,
+        "startFrame": 21,
+        "endFrame": 30
+      }
+    ],
+    [
+      {
+        "text": "משיכה",
+        "start": 1.05,
+        "end": 1.383,
+        "keyword": false,
+        "startFrame": 32,
+        "endFrame": 41
+      },
+      {
+        "text": "אחת",
+        "start": 1.383,
+        "end": 1.717,
+        "keyword": true,
+        "startFrame": 41,
+        "endFrame": 52
+      },
+      {
+        "text": "ארוכה",
+        "start": 1.717,
+        "end": 2.05,
+        "keyword": false,
+        "startFrame": 52,
+        "endFrame": 61
+      }
+    ],
+    [
+      {
+        "text": "בלי",
+        "start": 2.2,
+        "end": 2.567,
+        "keyword": false,
+        "startFrame": 66,
+        "endFrame": 77
+      },
+      {
+        "text": "עצירות",
+        "start": 2.567,
+        "end": 2.933,
+        "keyword": true,
+        "startFrame": 77,
+        "endFrame": 88
+      },
+      {
+        "text": "באמצע",
+        "start": 2.933,
+        "end": 3.3,
+        "keyword": false,
+        "startFrame": 88,
+        "endFrame": 99
+      }
+    ],
+    [
+      {
+        "text": "מרית",
+        "start": 3.45,
+        "end": 3.975,
+        "keyword": false,
+        "startFrame": 104,
+        "endFrame": 119
+      },
+      {
+        "text": "רחבה",
+        "start": 3.975,
+        "end": 4.5,
+        "keyword": true,
+        "startFrame": 119,
+        "endFrame": 135
+      }
+    ],
+    [
+      {
+        "text": "לחץ",
+        "start": 4.6,
+        "end": 4.967,
+        "keyword": false,
+        "startFrame": 138,
+        "endFrame": 149
+      },
+      {
+        "text": "שווה",
+        "start": 4.967,
+        "end": 5.333,
+        "keyword": true,
+        "startFrame": 149,
+        "endFrame": 160
+      },
+      {
+        "text": "לאורך",
+        "start": 5.333,
+        "end": 5.7,
+        "keyword": false,
+        "startFrame": 160,
+        "endFrame": 171
+      }
+    ],
+    [
+      {
+        "text": "ועוד",
+        "start": 5.85,
+        "end": 6.15,
+        "keyword": false,
+        "startFrame": 176,
+        "endFrame": 184
+      },
+      {
+        "text": "מעבר",
+        "start": 6.15,
+        "end": 6.45,
+        "keyword": false,
+        "startFrame": 184,
+        "endFrame": 194
+      },
+      {
+        "text": "דק",
+        "start": 6.45,
+        "end": 6.75,
+        "keyword": true,
+        "startFrame": 194,
+        "endFrame": 202
+      }
+    ],
+    [
+      {
+        "text": "זה",
+        "start": 6.85,
+        "end": 7.2,
+        "keyword": false,
+        "startFrame": 206,
+        "endFrame": 216
+      },
+      {
+        "text": "מתחת",
+        "start": 7.2,
+        "end": 7.55,
+        "keyword": false,
+        "startFrame": 216,
+        "endFrame": 226
+      },
+      {
+        "text": "לצבע",
+        "start": 7.55,
+        "end": 7.9,
+        "keyword": true,
+        "startFrame": 226,
+        "endFrame": 237
+      }
+    ],
+    [
+      {
+        "text": "צבע",
+        "start": 8.05,
+        "end": 8.367,
+        "keyword": false,
+        "startFrame": 242,
+        "endFrame": 251
+      },
+      {
+        "text": "לא",
+        "start": 8.367,
+        "end": 8.683,
+        "keyword": false,
+        "startFrame": 251,
+        "endFrame": 260
+      },
+      {
+        "text": "מסתיר",
+        "start": 8.683,
+        "end": 9.0,
+        "keyword": true,
+        "startFrame": 260,
+        "endFrame": 270
+      }
+    ],
+    [
+      {
+        "text": "הוא",
+        "start": 9.1,
+        "end": 9.55,
+        "keyword": false,
+        "startFrame": 273,
+        "endFrame": 286
+      },
+      {
+        "text": "מגלה",
+        "start": 9.55,
+        "end": 10.0,
+        "keyword": true,
+        "startFrame": 286,
+        "endFrame": 300
+      }
+    ],
+    [
+      {
+        "text": "שמרו",
+        "start": 10.15,
+        "end": 10.4,
+        "keyword": true,
+        "startFrame": 304,
+        "endFrame": 312
+      },
+      {
+        "text": "לשיפוץ",
+        "start": 10.4,
+        "end": 10.65,
+        "keyword": false,
+        "startFrame": 312,
+        "endFrame": 320
+      }
+    ]
+  ],
+  "beats": [
+    3,
+    29,
+    63,
+    81,
+    104,
+    137,
+    157,
+    176,
+    204,
+    222,
+    242,
+    273,
+    304
+  ],
+  "audioBeats": [
+    8,
+    29,
+    63,
+    81,
+    137,
+    157,
+    176,
+    204,
+    222,
+    243,
+    306
+  ],
+  "video": "board_clean.mp4",
+  "logo": "logo.jpg",
+  "logoRound": true,
+  "introFrames": 75,
+  "introZoomTo": 1.1,
+  "zoomOrigin": "45% 40%",
+  "highlightActive": false,
+  "captionBox": true,
+  "outroFrames": 75,
+  "outro": {
+    "line1": "קיר שנראה טוב",
+    "line2": "גם אחרי שנה",
+    "footer": "קולורטק · הפרטים בכיתוב"
+  }
+}

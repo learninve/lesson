@@ -40,6 +40,7 @@ export type ReelData = {
   introZoomTo?: number;
   zoomOrigin?: string;
   highlightActive?: boolean; // false: only `keyword` words turn yellow
+  captionBox?: boolean; // dark rounded box behind the captions (for all-white footage)
   outro?: {line1: string; line2: string; phone?: string; footer?: string};
   outroFrames?: number;
   result?: {before: string; after: string; endBg?: string; frames: number; beforeLabel: string; afterLabel: string};
@@ -124,7 +125,8 @@ const Captions: React.FC<{
   fps: number;
   height: number;
   highlightActive: boolean;
-}> = ({chunks, frame, fps, height, highlightActive}) => {
+  captionBox: boolean;
+}> = ({chunks, frame, fps, height, highlightActive, captionBox}) => {
   const chunk = chunks.find((c) => frame >= c[0].startFrame && frame < c[c.length - 1].endFrame);
   if (!chunk) return null;
   const visible = chunk.slice(0, MAX_WORDS);
@@ -159,9 +161,23 @@ const Captions: React.FC<{
         whiteSpace: 'nowrap',
       }}
     >
-      {visible.map((w, i) => (
-        <WordSpan key={`${w.startFrame}-${i}`} word={w} frame={frame} fps={fps} highlightActive={highlightActive} />
-      ))}
+      <div
+        style={
+          captionBox
+            ? {
+                display: 'inline-block',
+                padding: '14px 44px 26px',
+                borderRadius: 30,
+                backgroundColor: 'rgba(0,0,0,0.62)',
+                boxShadow: '0 14px 34px rgba(0,0,0,0.35)',
+              }
+            : {display: 'inline-block'}
+        }
+      >
+        {visible.map((w, i) => (
+          <WordSpan key={`${w.startFrame}-${i}`} word={w} frame={frame} fps={fps} highlightActive={highlightActive} />
+        ))}
+      </div>
     </div>
   );
 };
@@ -486,6 +502,7 @@ export const ViralReel: React.FC<{data: ReelData}> = ({data}) => {
         fps={fps}
         height={height}
         highlightActive={data.highlightActive ?? true}
+        captionBox={data.captionBox ?? false}
       />
       {frame < mainFrames ? (
         <LogoBadge

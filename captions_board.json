@@ -1,0 +1,101 @@
+{
+  "_note": "Hook lines for the plasterboard clip (no speech in the audio, only knife strokes). Times are seconds on remotion/public/board_clean.mp4 (after edit_board.sh cuts). Max 3 words per line; 'keywords' are always yellow. Voice: a pro explaining to a homeowner – no selling, no naming other tradesmen.",
+  "lines": [
+    {
+      "start": 0.1,
+      "end": 1.0,
+      "text": "רואים את הקצה?",
+      "keywords": [
+        "הקצה?"
+      ]
+    },
+    {
+      "start": 1.05,
+      "end": 2.05,
+      "text": "משיכה אחת ארוכה",
+      "keywords": [
+        "אחת"
+      ]
+    },
+    {
+      "start": 2.2,
+      "end": 3.3,
+      "text": "בלי עצירות באמצע",
+      "keywords": [
+        "עצירות"
+      ]
+    },
+    {
+      "start": 3.45,
+      "end": 4.5,
+      "text": "מרית רחבה",
+      "keywords": [
+        "רחבה"
+      ]
+    },
+    {
+      "start": 4.6,
+      "end": 5.7,
+      "text": "לחץ שווה לאורך",
+      "keywords": [
+        "שווה"
+      ]
+    },
+    {
+      "start": 5.85,
+      "end": 6.75,
+      "text": "ועוד מעבר דק",
+      "keywords": [
+        "דק"
+      ]
+    },
+    {
+      "start": 6.85,
+      "end": 7.9,
+      "text": "זה מתחת לצבע",
+      "keywords": [
+        "לצבע"
+      ]
+    },
+    {
+      "start": 8.05,
+      "end": 9.0,
+      "text": "צבע לא מסתיר",
+      "keywords": [
+        "מסתיר"
+      ]
+    },
+    {
+      "start": 9.1,
+      "end": 10.0,
+      "text": "הוא מגלה",
+      "keywords": [
+        "מגלה"
+      ]
+    },
+    {
+      "start": 10.15,
+      "end": 10.65,
+      "text": "שמרו לשיפוץ",
+      "keywords": [
+        "שמרו"
+      ]
+    }
+  ],
+  "overrides": {
+    "video": "board_clean.mp4",
+    "logo": "logo.jpg",
+    "logoRound": true,
+    "introFrames": 75,
+    "introZoomTo": 1.1,
+    "zoomOrigin": "45% 40%",
+    "highlightActive": false,
+    "captionBox": true,
+    "outroFrames": 75,
+    "outro": {
+      "line1": "קיר שנראה טוב",
+      "line2": "גם אחרי שנה",
+      "footer": "קולורטק · הפרטים בכיתוב"
+    }
+  }
+}

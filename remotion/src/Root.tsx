@@ -3,6 +3,7 @@ import {Composition} from 'remotion';
 import {OUTRO_FRAMES, ViralReel} from './ViralReel';
 import data from './data.json';
 import carSeat from './data_car_seat.json';
+import board from './data_board.json';
 
 export const RemotionRoot: React.FC = () => {
   return (
@@ -24,6 +25,15 @@ export const RemotionRoot: React.FC = () => {
         width={carSeat.width}
         height={carSeat.height}
         defaultProps={{data: carSeat}}
+      />
+      <Composition
+        id="Board"
+        component={ViralReel}
+        durationInFrames={board.durationInFrames + board.outroFrames}
+        fps={board.fps}
+        width={board.width}
+        height={board.height}
+        defaultProps={{data: board}}
       />
     </>
   );
