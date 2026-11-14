@@ -1,0 +1,182 @@
+{
+  "fps": 30,
+  "width": 1080,
+  "height": 1920,
+  "durationInFrames": 403,
+  "captionSource": "build_shpachtel_data.py",
+  "chunks": [
+    [
+      {
+        "text": "תראו",
+        "start": 0.0,
+        "end": 0.5,
+        "keyword": false,
+        "startFrame": 0,
+        "endFrame": 15
+      },
+      {
+        "text": "את",
+        "start": 0.5,
+        "end": 1.0,
+        "keyword": false,
+        "startFrame": 15,
+        "endFrame": 30
+      },
+      {
+        "text": "הקיר",
+        "start": 1.0,
+        "end": 1.5,
+        "keyword": true,
+        "startFrame": 30,
+        "endFrame": 45
+      }
+    ],
+    [
+      {
+        "text": "מעבר",
+        "start": 1.5,
+        "end": 2.25,
+        "keyword": true,
+        "startFrame": 45,
+        "endFrame": 68
+      },
+      {
+        "text": "אחד...",
+        "start": 2.25,
+        "end": 3.0,
+        "keyword": false,
+        "startFrame": 68,
+        "endFrame": 90
+      }
+    ],
+    [
+      {
+        "text": "חלק",
+        "start": 3.2,
+        "end": 3.8,
+        "keyword": true,
+        "startFrame": 96,
+        "endFrame": 114
+      },
+      {
+        "text": "כמו",
+        "start": 3.8,
+        "end": 4.4,
+        "keyword": false,
+        "startFrame": 114,
+        "endFrame": 132
+      },
+      {
+        "text": "מראה",
+        "start": 4.4,
+        "end": 5.0,
+        "keyword": true,
+        "startFrame": 132,
+        "endFrame": 150
+      }
+    ],
+    [
+      {
+        "text": "בלי",
+        "start": 5.2,
+        "end": 6.05,
+        "keyword": false,
+        "startFrame": 156,
+        "endFrame": 182
+      },
+      {
+        "text": "גלים",
+        "start": 6.05,
+        "end": 6.9,
+        "keyword": true,
+        "startFrame": 182,
+        "endFrame": 207
+      }
+    ],
+    [
+      {
+        "text": "בלי",
+        "start": 7.0,
+        "end": 7.8,
+        "keyword": false,
+        "startFrame": 210,
+        "endFrame": 234
+      },
+      {
+        "text": "סימנים",
+        "start": 7.8,
+        "end": 8.6,
+        "keyword": true,
+        "startFrame": 234,
+        "endFrame": 258
+      }
+    ],
+    [
+      {
+        "text": "גימור",
+        "start": 8.7,
+        "end": 9.367,
+        "keyword": true,
+        "startFrame": 261,
+        "endFrame": 281
+      },
+      {
+        "text": "של",
+        "start": 9.367,
+        "end": 10.033,
+        "keyword": false,
+        "startFrame": 281,
+        "endFrame": 301
+      },
+      {
+        "text": "מקצוענים",
+        "start": 10.033,
+        "end": 10.7,
+        "keyword": true,
+        "startFrame": 301,
+        "endFrame": 321
+      }
+    ],
+    [
+      {
+        "text": "רוצים",
+        "start": 11.3,
+        "end": 11.978,
+        "keyword": false,
+        "startFrame": 339,
+        "endFrame": 359
+      },
+      {
+        "text": "קיר",
+        "start": 11.978,
+        "end": 12.656,
+        "keyword": true,
+        "startFrame": 359,
+        "endFrame": 380
+      },
+      {
+        "text": "כזה?",
+        "start": 12.656,
+        "end": 13.333,
+        "keyword": true,
+        "startFrame": 380,
+        "endFrame": 400
+      }
+    ]
+  ],
+  "beats": [
+    96,
+    156,
+    210,
+    261,
+    339
+  ],
+  "audioBeats": [],
+  "video": "shpachtel_edit.mp4",
+  "logo": "logo.jpg",
+  "logoRound": true,
+  "introFrames": 90,
+  "introZoomTo": 1.12,
+  "highlightActive": false,
+  "outroFrames": 90
+}

@@ -47,3 +47,14 @@ cd remotion && npx remotion render src/index.ts ViralReel ../viral_output.mp4 \
   --codec h264 --crf 18 --browser-executable /opt/pw-browsers/chromium
 ```
 Output: 1080x1920, 30 fps, 12.0 s (10 s clip + 2 s end card), -14 LUFS.
+
+## Kolortek plastering reel (`colortech_shpachtel_reel.mp4`)
+```
+./edit_shpachtel.sh raw.mp4 remotion/public/shpachtel_edit.mp4   # upscale, light grade, -14 LUFS, no cuts
+python3 build_shpachtel_data.py                                   # captions + beats -> data_shpachtel.json
+cd remotion
+npx remotion render src/index.ts Shpachtel ../colortech_shpachtel_reel.mp4 --codec h264 --crf 18 --browser-executable /opt/pw-browsers/chromium
+npx remotion still src/index.ts ShpachtelCover ../colortech_shpachtel_cover.png --browser-executable /opt/pw-browsers/chromium
+```
+13.4 s clip + 3 s Kolortek end card (logo, "להצעת מחיר", 053-323-7036). Cover: `remotion/src/Cover.tsx`
+(key content inside the central 4:5 area). Post text: `colortech_shpachtel_caption.txt`.
