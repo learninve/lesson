@@ -17,6 +17,9 @@ SRC, LOGO, OUT, WORK = sys.argv[1:5]
 os.makedirs(OUT, exist_ok=True); os.makedirs(WORK, exist_ok=True)
 FONT = "/home/user/lesson/remotion/public/fonts/Heebo-900.ttf"
 W, H = 1080, 1920
+BR = os.environ.get("LOGO_BR") == "1"
+LOGO_XY = (684, 1600) if BR else (44, 130)
+VARIANTS = os.environ.get("VARIANTS", "ABC")
 CX = 540                    # text is centred here, max width 760 -> x in [160, 920]
 MAXW = 760                  # keeps clear of the right-hand button column
 # safe vertical zone: 10%..80% (192..1536)
@@ -99,7 +102,10 @@ def make_assets():
     A["C"] = caption_png(["יש פה 2 תפרים.", "לא תמצא אף אחד."], f"{WORK}/cap_C.png")
     A["mid"] = caption_png(["כאן הקיר נקבע.", "לא בצבע."], f"{WORK}/cap_mid.png")
     A["res"] = caption_png(["אותו קיר."], f"{WORK}/cap_res.png", size=96)
-    round_logo(150, 0.70).save(f"{WORK}/logo_corner.png")
+    if BR:   # logo bottom-right, opaque, covering the footage's own mark
+        round_logo(316, 1.0).save(f"{WORK}/logo_corner.png")
+    else:
+        round_logo(150, 0.70).save(f"{WORK}/logo_corner.png")
     # end card
     bg = Image.new("RGB", (W, H), (14, 15, 18))
     lg = round_logo(540)
@@ -193,7 +199,7 @@ def make_base(variant):
 
 def loudness_gain():
     """one measurement pass on the A base audio -> linear gain towards -14 LUFS (applies to all variants)."""
-    r = subprocess.run(["ffmpeg", "-hide_banner", "-i", f"{WORK}/base_A.mkv", "-vn", "-af",
+    r = subprocess.run(["ffmpeg", "-hide_banner", "-i", f"{WORK}/base_{VARIANTS[0]}.mkv", "-vn", "-af",
                         "highpass=f=70,loudnorm=I=-14:TP=-1.5:LRA=11:print_format=json", "-f", "null", "-"],
                        capture_output=True, text=True)
     j = json.loads(r.stderr[r.stderr.rfind("{"):r.stderr.rfind("}") + 1])
@@ -225,7 +231,7 @@ def overlay_chain(variant, A):
     # hard cut to the end card, its content fades in over 0.3s
     fc.append(f"[{n}:v]format=yuv420p,fade=t=in:st=0:d=0.3,setsar=1[end]")
     fc.append(f"[{last}][end]concat=n=2:v=1:a=0[vv]")
-    fc.append(f"[vv][{n+1}:v]overlay=x=44:y=130:format=auto[vfinal]")
+    fc.append(f"[vv][{n+1}:v]overlay=x={LOGO_XY[0]}:y={LOGO_XY[1]}:format=auto[vfinal]")
     return ";".join(fc), inputs
 
 
@@ -234,7 +240,7 @@ def render(variant, A, gain):
     af = (f"[0:a]highpass=f=70,loudnorm=I=-14:TP=-1.5:LRA=11:measured_I={gain['input_i']}:measured_TP={gain['input_tp']}:"
           f"measured_LRA={gain['input_lra']}:measured_thresh={gain['input_thresh']}:offset={gain['target_offset']}:linear=true,"
           "aresample=48000,apad=whole_dur=20,atrim=0:20,afade=t=in:st=0:d=0.05[aout]")
-    out = f"{OUT}/colortek_wall_reel_{variant}.mp4"
+    out = f"{OUT}/colortek_wall_reel_{variant}{'_logo_br' if BR else ''}.mp4"
     run(["ffmpeg", "-v", "error", *inputs, "-filter_complex", fc + ";" + af,
          "-map", "[vfinal]", "-map", "[aout]", "-t", "20",
          "-c:v", "libx264", "-preset", "slow", "-crf", "22", "-maxrate", "3500k", "-bufsize", "7000k",
@@ -247,9 +253,10 @@ def render(variant, A, gain):
 if __name__ == "__main__":
     A = make_assets()
     print({k: v for k, v in A.items()})
-    for v in "ABC":
-        make_base(v)
+    if not os.environ.get("SKIP_BASE"):
+        for v in VARIANTS:
+            make_base(v)
     gain = loudness_gain()
-    for v in "ABC":
+    for v in VARIANTS:
         o = render(v, A, gain)
         print(o, os.path.getsize(o) / 1e6, "MB")
