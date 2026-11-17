@@ -96,8 +96,9 @@ def tokenize(markup, base, hi):
     """'a *b* c 🤔' -> logical-order tokens with colour / emoji flags."""
     toks = []
     for w in markup.split():
-        hl = w.startswith("*") and w.endswith("*") and len(w) > 2
-        w = w.strip("*")
+        mt = re.match(r"^\*(.+?)\*([?!.,:;]*)$", w)        # *word* or *word*? (punctuation stays attached)
+        hl = bool(mt)
+        w = mt.group(1) + mt.group(2) if mt else w
         toks.append(dict(text=w, color=hi if hl else base, emoji=bool(EMOJI_RE.match(w))))
     return toks
 
