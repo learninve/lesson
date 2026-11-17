@@ -31,27 +31,49 @@ LOGO_PATH = HERE / "remotion/public/logo.jpg"              # same file as the up
 WHITE, YELLOW, GREEN, CYAN = (255, 255, 255), (255, 214, 10), (48, 209, 88), (190, 232, 245)
 PHONE = "053-3237036"
 
-# ---------------------------------------------------------------- timeline (source seconds)
-# (label, src_start, src_end, speed)
-SEGMENTS = [("A", 5.00, 9.85, 1.25), ("B", 15.00, 21.05, 1.0), ("C", 28.45, 29.80, 1.0)]
-TAIL = (29.80, 31.05)            # real footage kept under the first part of the end card
-END_CARD = 3.0                   # seconds (tail footage + frozen last frame)
-DUR = [(e - s) / sp for _, s, e, sp in SEGMENTS]
-T1 = DUR[0]; T2 = T1 + DUR[1]; T3 = T2 + DUR[2]; TOTAL = T3 + END_CARD
-
-# ---------------------------------------------------------------- overlay copy
+# ---------------------------------------------------------------- profiles
+# segments: (label, src_start, src_end, speed). tail = footage kept under the end card (then frozen),
+# tail_audio = source audio window faded out under the end card, scrim = hide a burned-in caption.
 # *word* = highlighted. A trailing emoji is placed after the last word, i.e. on the LEFT in RTL.
-OVERLAYS = {
-    "ov1": dict(start=0.0, end=T1,
-                hook=("למה הכתמים במושב *חוזרים* אחרי כמה שבועות? 🤔", WHITE, YELLOW),
-                sub=("שלב 1: קצף שמפרק את הלכלוך עמוק בתוך הבד", CYAN, YELLOW)),
-    "ov2": dict(start=T1, end=T2,
-                hook=("לא רק לנקות — לשאוב את הלכלוך החוצה ✨", WHITE, YELLOW),
-                sub=("תגבירו רגע: *הסאונד* של השאיבה אומר הכל 🔊", CYAN, GREEN)),
-    "ov3": dict(start=T2, end=T3,
-                hook=("נקי עד הסיבים. אפס פשרות 👌", WHITE, YELLOW),
-                badge=("*קולורטק* | עבודה עברית", WHITE, YELLOW)),
+END_CARD = 3.0                   # seconds
+PROFILES = {
+    # attached clip #1: 31 s car-seat extraction clip (cuts re-chosen on the real footage)
+    "carseat": dict(
+        segments=[("A", 5.00, 9.85, 1.25), ("B", 15.00, 21.05, 1.0), ("C", 28.45, 29.80, 1.0)],
+        tail=(29.80, 31.05), tail_audio=(29.80, 31.05), scrim=True,
+        overlays={
+            "ov1": dict(hook=("למה הכתמים במושב *חוזרים* אחרי כמה שבועות? 🤔", WHITE, YELLOW),
+                        sub=("שלב 1: קצף שמפרק את הלכלוך עמוק בתוך הבד", CYAN, YELLOW)),
+            "ov2": dict(hook=("לא רק לנקות — לשאוב את הלכלוך החוצה ✨", WHITE, YELLOW),
+                        sub=("תגבירו רגע: *הסאונד* של השאיבה אומר הכל 🔊", CYAN, GREEN)),
+            "ov3": dict(hook=("נקי עד הסיבים. אפס פשרות 👌", WHITE, YELLOW),
+                        badge=("*קולורטק* | עבודה עברית", WHITE, YELLOW)),
+        }),
+    # attached clip #2: 14.4 s drywall joint-compound clip = the footage the original brief was written for;
+    # the brief's cut points and copy are used as written (no burned-in caption -> no scrim)
+    "drywall": dict(
+        segments=[("A", 0.35, 5.20, 1.25), ("B", 6.40, 12.45, 1.0), ("C", 12.45, 13.80, 1.0)],
+        tail=(13.75, 13.80), tail_audio=(13.80, 14.20), scrim=False,   # tail = 1 frame, frozen (no camera shake)
+        overlays={
+            "ov1": dict(hook=("למה רוב חיבורי הגבס *נסדקים* אחרי חצי שנה? 🤔", WHITE, YELLOW),
+                        sub=("שלב 1: החדרת החומר לתוך הרשת (בלי כיסי אוויר)", CYAN, YELLOW)),
+            "ov2": dict(hook=("לא סתם למרוח — לדחוס וליישר לאפס ✨", WHITE, YELLOW),
+                        sub=("תגבירו רגע: *הסאונד* של הגריפה אומר הכל 🔊", CYAN, GREEN)),
+            "ov3": dict(hook=("גימור חלק ברמת מראה. אפס פשרות 👌", WHITE, YELLOW),
+                        badge=("*קולורטק* | עבודות צבע ושפכטל ברמה אחרת 🎨", WHITE, YELLOW)),
+        }),
 }
+
+
+def apply_profile(name):
+    global SEGMENTS, TAIL, TAIL_AUDIO, SCRIM, OVERLAYS, DUR, T1, T2, T3, TOTAL
+    p = PROFILES[name]
+    SEGMENTS, TAIL, TAIL_AUDIO, SCRIM, OVERLAYS = p["segments"], p["tail"], p["tail_audio"], p["scrim"], p["overlays"]
+    DUR = [(e - s) / sp for _, s, e, sp in SEGMENTS]
+    T1 = DUR[0]; T2 = T1 + DUR[1]; T3 = T2 + DUR[2]; TOTAL = T3 + END_CARD
+
+
+apply_profile("carseat")
 
 EMOJI_RE = re.compile("^[\U0001F000-\U0001FAFF☀-➿️]+$")
 
@@ -287,9 +309,11 @@ def audio_graph():
         parts.append(f"[0:a]atrim={s}:{e},asetpts=PTS-STARTPTS{tempo},aresample=48000,"
                      f"afade=t=in:d=0.01,afade=t=out:st={d - 0.01:.3f}:d=0.01[a{i}]")
         labels.append(f"[a{i}]")
-    ts, te = TAIL
+    ts, te = TAIL_AUDIO
+    L = te - ts
+    fst = 0.35 if L > 1 else 0.0
     parts.append(f"[0:a]atrim={ts}:{te},asetpts=PTS-STARTPTS,aresample=48000,afade=t=in:d=0.01,"
-                 f"afade=t=out:st=0.35:d={te - ts - 0.4:.2f},apad=whole_dur={END_CARD}[a3]")
+                 f"afade=t=out:st={fst}:d={L - fst - 0.05:.2f},apad=whole_dur={END_CARD}[a3]")
     labels.append("[a3]")
     return parts, labels
 
@@ -320,17 +344,22 @@ def build_graph(m, fps):
     cat = "[v0]" + labels[0] + "[v1]" + labels[1] + "[v2]" + labels[2] + "[v3]" + labels[3]
     ln = (f"{LOUDNORM}:measured_I={m['input_i']}:measured_TP={m['input_tp']}:measured_LRA={m['input_lra']}:"
           f"measured_thresh={m['input_thresh']}:offset={m['target_offset']}:linear=true")
+    if SCRIM:   # blurred, darkened scrim over the top: hides a burned-in caption in the clip
+        scrim_nodes = [
+            "[g]split=2[g0][g1]",
+            f"[g1]crop={W}:560:0:0,gblur=sigma=28:steps=2,eq=brightness=-0.22:saturation=0.85,format=yuv420p[bl]",
+            "[1:v]format=gray[mk]",
+            "[bl][mk]alphamerge[blm]",
+            "[g0][blm]overlay=0:0:format=auto[s0]",
+        ]
+    else:
+        scrim_nodes = ["[g]null[s0]"]
     g = v + a + [
         f"{cat}concat=n=4:v=1:a=1[vc][ac]",
         # colour grade + texture sharpening (spec)
         "[vc]colorbalance=bs=0.04:bm=0.03,eq=contrast=1.08:brightness=0.02:saturation=0.95,"
         "unsharp=5:5:0.8:5:5:0.0[g]",
-        # blurred, darkened scrim over the top: hides the clip's burned-in English caption
-        "[g]split=2[g0][g1]",
-        f"[g1]crop={W}:560:0:0,gblur=sigma=28:steps=2,eq=brightness=-0.22:saturation=0.85,format=yuv420p[bl]",
-        "[1:v]format=gray[mk]",
-        "[bl][mk]alphamerge[blm]",
-        "[g0][blm]overlay=0:0:format=auto[s0]",
+        *scrim_nodes,
         # end card background: blur + dim, fading in
         "[s0]split=2[s1][s2]",
         f"[s2]gblur=sigma=22:steps=2,eq=brightness=-0.30:saturation=0.8,format=yuva420p,"
@@ -356,7 +385,9 @@ def main():
     ap.add_argument("--out", default="colortech_reel_final.mp4")
     ap.add_argument("--work", default="colortech_work")
     ap.add_argument("--frames-dir", default=".")
+    ap.add_argument("--profile", default="carseat", choices=sorted(PROFILES))
     args = ap.parse_args()
+    apply_profile(args.profile)
     src, out, work = Path(args.input), Path(args.out), Path(args.work)
     work.mkdir(parents=True, exist_ok=True)
 

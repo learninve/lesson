@@ -58,3 +58,12 @@ self-test; FFmpeg does cuts, grade, the ASMR audio chain (two-pass `loudnorm`) a
 * The clip has a burned-in English caption at the top: a blurred, darkened scrim (feathered mask) sits under the pills.
 * End card: round Kolortek badge (circle-cropped from `remotion/public/logo.jpg`), "להצעת מחיר", 053-3237036.
 * `frame_hook.jpg` (1.5 s), `frame_asmr.jpg` (6.0 s), `frame_end.jpg` (10.5 s), `frame_cta.jpg` (13.0 s) are the check frames.
+
+### Second clip: drywall reel (`--profile drywall` → `drywall/colortech_reel_final.mp4`)
+The original brief was written for a 14.4 s drywall joint-compound clip, so its cut points and copy are used as
+written: A 0.35–5.20 @1.25x, B 6.40–12.45, C 12.45–13.80 (11.28 s) + the 3 s logo / price-quote end card
+(053-3237036), 14.30 s total, -14.1 LUFS / -1.9 dBFS peak. No burned-in caption in this clip, so no scrim; the end card
+freezes the last clean frame (the footage after 13.80 s is camera shake). The car-seat profile is the default and
+still renders the identical filtergraph. Frames for checking are in `drywall/`.
+
+    python3 build_colortech_reel.py --profile drywall --input RAW.mp4 --out drywall/colortech_reel_final.mp4 --frames-dir drywall
