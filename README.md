@@ -47,3 +47,14 @@ cd remotion && npx remotion render src/index.ts ViralReel ../viral_output.mp4 \
   --codec h264 --crf 18 --browser-executable /opt/pw-browsers/chromium
 ```
 Output: 1080x1920, 30 fps, 12.0 s (10 s clip + 2 s end card), -14 LUFS.
+
+## ColorTech Reel (`build_colortech_reel.py` → `colortech_reel_final.mp4`)
+`python3 build_colortech_reel.py --input RAW.mp4` – 1080x1920 @ 30 fps (source fps), H.264 crf 18 / AAC 192k,
+14.28 s, -14.0 LUFS / -1.5 dBFS peak. Hebrew overlays are Pillow PNGs (raqm RTL, Heebo Black) with a glyph-order
+self-test; FFmpeg does cuts, grade, the ASMR audio chain (two-pass `loudnorm`) and timed overlays.
+* The brief was written for a 14.3 s plastering clip; the attached clip is a 31 s car-seat extraction clip, so the
+  cut points were re-chosen on the real footage: A 5.00–9.85 @1.25x, B 15.00–21.05, C 28.45–29.80, end card
+  29.80–31.05 + freeze (3 s). Overlay copy was rewritten to match what is on screen.
+* The clip has a burned-in English caption at the top: a blurred, darkened scrim (feathered mask) sits under the pills.
+* End card: round Kolortek badge (circle-cropped from `remotion/public/logo.jpg`), "להצעת מחיר", 053-3237036.
+* `frame_hook.jpg` (1.5 s), `frame_asmr.jpg` (6.0 s), `frame_end.jpg` (10.5 s), `frame_cta.jpg` (13.0 s) are the check frames.
