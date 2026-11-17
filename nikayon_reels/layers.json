@@ -1,0 +1,32 @@
+{
+  "_doc": "Hebrew overlay copy + timing (OUTPUT timeline, seconds). '*word*' = gold highlight. 'end': null = until the last frame. Edit and re-run build_reels.py.",
+  "frame": { "w": 1080, "h": 1920 },
+  "banner": { "solid_h": 480, "shadow_h": 50 },
+  "text_box": { "top": 202, "height": 244 },
+  "text_layers": [
+    {
+      "id": "hook", "start": 0.0, "end": 4.0, "fade_in": 0.0, "size": 74,
+      "lines": [ "אם המושבים ברכב", "שלכם היו יכולים", "*לדבר*... 😭💧" ]
+    },
+    {
+      "id": "mid", "start": 4.0, "end": 10.0, "fade_in": 0.22, "size": 76,
+      "lines": [ "ככה נראות שנים של *זיעה*,", "*אבק* וכתמים שנספגו בבד" ]
+    },
+    {
+      "id": "brand", "start": 10.0, "end": 14.0, "fade_in": 0.22, "size": 64,
+      "lines": [ "@@סיירת ניקיון@@", "הזרקה-יניקה עד הסיב האחרון ✨" ]
+    },
+    {
+      "id": "cta", "start": 14.0, "end": null, "fade_in": 0.22, "size": 78,
+      "lines": [ "תייגו *חבר* שהרכב שלו", "חייב *הצלה דחופה* 👇" ]
+    }
+  ],
+  "end_card": {
+    "start": 15.0,
+    "scrim": { "top": 700, "height": 1220 },
+    "content": { "top": 800, "height": 720 },
+    "logo_px": 430,
+    "label": "לקבלת הצעת מחיר",
+    "phone": "055-7718519"
+  }
+}
