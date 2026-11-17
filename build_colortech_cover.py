@@ -16,6 +16,9 @@ ap = argparse.ArgumentParser()
 ap.add_argument("--input", required=True)
 ap.add_argument("--t", type=float, default=5.6)
 ap.add_argument("--out", default="colortech_cover.jpg")
+ap.add_argument("--hook", default="למה הכתמים *חוזרים*?")
+ap.add_argument("--sub", default="ככה מנקים מושב באמת 🧽")
+ap.add_argument("--no-scrim", action="store_true", help="clip has no burned-in caption")
 a = ap.parse_args()
 W, H, S = b.W, b.H, b.S
 
@@ -30,14 +33,15 @@ with tempfile.TemporaryDirectory() as td:
 # scrim over the burned-in English caption (same idea as the reel)
 top = ImageEnhance.Brightness(base.crop((0, 0, W, 560)).filter(ImageFilter.GaussianBlur(28))).enhance(0.72)
 m = np.array([255 if y <= 470 else int(255 * max(0, (560 - y) / 90)) for y in range(560)], np.uint8)
-base.paste(top, (0, 0), Image.fromarray(np.repeat(m[:, None], W, 1), "L"))
+if not a.no_scrim:
+    base.paste(top, (0, 0), Image.fromarray(np.repeat(m[:, None], W, 1), "L"))
 # soft bottom vignette so the logo pops
 g = np.array([int(150 * max(0, (y - 1250) / 670)) for y in range(H)], np.uint8)
 base = Image.composite(Image.new("RGB", (W, H), (0, 0, 0)), base, Image.fromarray(np.repeat(g[:, None], W, 1), "L"))
 
 c = b.new_canvas()
-bottom = b.draw_pill(c, 330, ("למה הכתמים *חוזרים*?", b.WHITE, b.YELLOW), 104, 800, pad=(56, 30), border=4, yellow_border=True)
-b.draw_pill(c, bottom + 26, ("ככה מנקים מושב באמת 🧽", b.CYAN, b.YELLOW), 58, 800, pad=(46, 22))
+bottom = b.draw_pill(c, 330, (a.hook, b.WHITE, b.YELLOW), 104, 800, pad=(56, 30), border=4, yellow_border=True)
+b.draw_pill(c, bottom + 26, (a.sub, b.CYAN, b.YELLOW), 58, 800, pad=(46, 22))
 logo = b.circular_logo(250 * S)
 lx, ly = 70 * S, 1290 * S
 sh = Image.new("RGBA", c.size, (0, 0, 0, 0))
