@@ -1,0 +1,240 @@
+{
+  "fps": 30,
+  "width": 1080,
+  "height": 1920,
+  "durationInFrames": 451,
+  "captionSource": "build_car_seat_data.py",
+  "chunks": [
+    [
+      {
+        "text": "זה",
+        "start": 0.0,
+        "end": 0.417,
+        "keyword": false,
+        "startFrame": 0,
+        "endFrame": 12
+      },
+      {
+        "text": "יצא",
+        "start": 0.417,
+        "end": 0.833,
+        "keyword": false,
+        "startFrame": 12,
+        "endFrame": 25
+      },
+      {
+        "text": "מהמושב",
+        "start": 0.833,
+        "end": 1.25,
+        "keyword": true,
+        "startFrame": 25,
+        "endFrame": 38
+      }
+    ],
+    [
+      {
+        "text": "שאתם",
+        "start": 1.25,
+        "end": 1.65,
+        "keyword": false,
+        "startFrame": 38,
+        "endFrame": 50
+      },
+      {
+        "text": "יושבים",
+        "start": 1.65,
+        "end": 2.05,
+        "keyword": false,
+        "startFrame": 50,
+        "endFrame": 62
+      },
+      {
+        "text": "עליו",
+        "start": 2.05,
+        "end": 2.45,
+        "keyword": true,
+        "startFrame": 62,
+        "endFrame": 74
+      }
+    ],
+    [
+      {
+        "text": "מעבר",
+        "start": 2.6,
+        "end": 3.3,
+        "keyword": false,
+        "startFrame": 78,
+        "endFrame": 99
+      },
+      {
+        "text": "אחד",
+        "start": 3.3,
+        "end": 4.0,
+        "keyword": true,
+        "startFrame": 99,
+        "endFrame": 120
+      },
+      {
+        "text": "בלבד",
+        "start": 4.0,
+        "end": 4.7,
+        "keyword": false,
+        "startFrame": 120,
+        "endFrame": 141
+      }
+    ],
+    [
+      {
+        "text": "והמים",
+        "start": 4.7,
+        "end": 5.433,
+        "keyword": false,
+        "startFrame": 141,
+        "endFrame": 163
+      },
+      {
+        "text": "כבר",
+        "start": 5.433,
+        "end": 6.167,
+        "keyword": false,
+        "startFrame": 163,
+        "endFrame": 185
+      },
+      {
+        "text": "חומים",
+        "start": 6.167,
+        "end": 6.9,
+        "keyword": true,
+        "startFrame": 185,
+        "endFrame": 207
+      }
+    ],
+    [
+      {
+        "text": "זיעה",
+        "start": 7.1,
+        "end": 7.7,
+        "keyword": true,
+        "startFrame": 213,
+        "endFrame": 231
+      },
+      {
+        "text": "אבק",
+        "start": 7.7,
+        "end": 8.3,
+        "keyword": true,
+        "startFrame": 231,
+        "endFrame": 249
+      },
+      {
+        "text": "שמן",
+        "start": 8.3,
+        "end": 8.9,
+        "keyword": true,
+        "startFrame": 249,
+        "endFrame": 267
+      }
+    ],
+    [
+      {
+        "text": "שנים",
+        "start": 8.9,
+        "end": 9.483,
+        "keyword": true,
+        "startFrame": 267,
+        "endFrame": 284
+      },
+      {
+        "text": "של",
+        "start": 9.483,
+        "end": 10.067,
+        "keyword": true,
+        "startFrame": 284,
+        "endFrame": 302
+      },
+      {
+        "text": "לכלוך",
+        "start": 10.067,
+        "end": 10.65,
+        "keyword": true,
+        "startFrame": 302,
+        "endFrame": 320
+      }
+    ],
+    [
+      {
+        "text": "ניקוי",
+        "start": 10.85,
+        "end": 11.533,
+        "keyword": false,
+        "startFrame": 326,
+        "endFrame": 346
+      },
+      {
+        "text": "עומק",
+        "start": 11.533,
+        "end": 12.217,
+        "keyword": true,
+        "startFrame": 346,
+        "endFrame": 366
+      },
+      {
+        "text": "אמיתי",
+        "start": 12.217,
+        "end": 12.9,
+        "keyword": true,
+        "startFrame": 366,
+        "endFrame": 387
+      }
+    ],
+    [
+      {
+        "text": "רוצים",
+        "start": 12.9,
+        "end": 13.578,
+        "keyword": false,
+        "startFrame": 387,
+        "endFrame": 407
+      },
+      {
+        "text": "מושב",
+        "start": 13.578,
+        "end": 14.256,
+        "keyword": true,
+        "startFrame": 407,
+        "endFrame": 428
+      },
+      {
+        "text": "נקי?",
+        "start": 14.256,
+        "end": 14.933,
+        "keyword": true,
+        "startFrame": 428,
+        "endFrame": 448
+      }
+    ]
+  ],
+  "beats": [
+    78,
+    141,
+    210,
+    267,
+    322,
+    387
+  ],
+  "audioBeats": [],
+  "video": "seat2_edit.mp4",
+  "logo": "logo_sayeret.png",
+  "logoRound": false,
+  "introFrames": 75,
+  "introZoomTo": 1.15,
+  "zoomOrigin": "45% 62%",
+  "highlightActive": false,
+  "outroFrames": 105,
+  "outro": {
+    "line1": "הצעת מחיר תוך דקה",
+    "line2": "בוואטסאפ",
+    "phone": "055-771-8519",
+    "footer": "סיירת ניקיון · עבודה עברית"
+  }
+}
