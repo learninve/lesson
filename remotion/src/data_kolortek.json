@@ -1,0 +1,326 @@
+{
+  "fps": 30,
+  "width": 1080,
+  "height": 1920,
+  "durationInFrames": 603,
+  "captionSource": "build_kolortek_data.py",
+  "chunks": [
+    [
+      {
+        "text": "רוצים",
+        "start": 0.0,
+        "end": 0.35,
+        "keyword": false,
+        "startFrame": 0,
+        "endFrame": 10
+      },
+      {
+        "text": "נישה",
+        "start": 0.35,
+        "end": 0.7,
+        "keyword": true,
+        "startFrame": 10,
+        "endFrame": 21
+      }
+    ],
+    [
+      {
+        "text": "כזאת?",
+        "start": 0.7,
+        "end": 1.35,
+        "keyword": true,
+        "startFrame": 21,
+        "endFrame": 40
+      }
+    ],
+    [
+      {
+        "text": "ככה",
+        "start": 1.45,
+        "end": 1.867,
+        "keyword": false,
+        "startFrame": 44,
+        "endFrame": 56
+      },
+      {
+        "text": "זה",
+        "start": 1.867,
+        "end": 2.283,
+        "keyword": false,
+        "startFrame": 56,
+        "endFrame": 68
+      },
+      {
+        "text": "מתחיל",
+        "start": 2.283,
+        "end": 2.7,
+        "keyword": false,
+        "startFrame": 68,
+        "endFrame": 81
+      }
+    ],
+    [
+      {
+        "text": "שכבה",
+        "start": 2.7,
+        "end": 3.3,
+        "keyword": false,
+        "startFrame": 81,
+        "endFrame": 99
+      },
+      {
+        "text": "ראשונה",
+        "start": 3.3,
+        "end": 3.9,
+        "keyword": true,
+        "startFrame": 99,
+        "endFrame": 117
+      }
+    ],
+    [
+      {
+        "text": "פינת",
+        "start": 4.05,
+        "end": 4.625,
+        "keyword": false,
+        "startFrame": 122,
+        "endFrame": 139
+      },
+      {
+        "text": "מתכת",
+        "start": 4.625,
+        "end": 5.2,
+        "keyword": true,
+        "startFrame": 139,
+        "endFrame": 156
+      }
+    ],
+    [
+      {
+        "text": "ישרה",
+        "start": 5.2,
+        "end": 5.561,
+        "keyword": false,
+        "startFrame": 156,
+        "endFrame": 167
+      },
+      {
+        "text": "כמו",
+        "start": 5.561,
+        "end": 5.922,
+        "keyword": false,
+        "startFrame": 167,
+        "endFrame": 178
+      },
+      {
+        "text": "סרגל",
+        "start": 5.922,
+        "end": 6.283,
+        "keyword": true,
+        "startFrame": 178,
+        "endFrame": 188
+      }
+    ],
+    [
+      {
+        "text": "החלקה",
+        "start": 6.383,
+        "end": 6.889,
+        "keyword": false,
+        "startFrame": 191,
+        "endFrame": 207
+      },
+      {
+        "text": "עד",
+        "start": 6.889,
+        "end": 7.394,
+        "keyword": false,
+        "startFrame": 207,
+        "endFrame": 222
+      },
+      {
+        "text": "המילימטר",
+        "start": 7.394,
+        "end": 7.9,
+        "keyword": true,
+        "startFrame": 222,
+        "endFrame": 237
+      }
+    ],
+    [
+      {
+        "text": "חכו",
+        "start": 7.9,
+        "end": 8.567,
+        "keyword": false,
+        "startFrame": 237,
+        "endFrame": 257
+      },
+      {
+        "text": "לסוף",
+        "start": 8.567,
+        "end": 9.233,
+        "keyword": true,
+        "startFrame": 257,
+        "endFrame": 277
+      }
+    ],
+    [
+      {
+        "text": "כל",
+        "start": 9.383,
+        "end": 9.942,
+        "keyword": false,
+        "startFrame": 281,
+        "endFrame": 298
+      },
+      {
+        "text": "חיבור",
+        "start": 9.942,
+        "end": 10.5,
+        "keyword": true,
+        "startFrame": 298,
+        "endFrame": 315
+      }
+    ],
+    [
+      {
+        "text": "נסגר",
+        "start": 10.5,
+        "end": 10.992,
+        "keyword": false,
+        "startFrame": 315,
+        "endFrame": 330
+      },
+      {
+        "text": "חלק",
+        "start": 10.992,
+        "end": 11.483,
+        "keyword": true,
+        "startFrame": 330,
+        "endFrame": 344
+      }
+    ],
+    [
+      {
+        "text": "בלי",
+        "start": 11.683,
+        "end": 12.522,
+        "keyword": false,
+        "startFrame": 350,
+        "endFrame": 376
+      },
+      {
+        "text": "קיצורי",
+        "start": 12.522,
+        "end": 13.361,
+        "keyword": true,
+        "startFrame": 376,
+        "endFrame": 401
+      },
+      {
+        "text": "דרך",
+        "start": 13.361,
+        "end": 14.2,
+        "keyword": true,
+        "startFrame": 401,
+        "endFrame": 426
+      }
+    ],
+    [
+      {
+        "text": "עבודה",
+        "start": 14.2,
+        "end": 15.05,
+        "keyword": false,
+        "startFrame": 426,
+        "endFrame": 452
+      },
+      {
+        "text": "עברית",
+        "start": 15.05,
+        "end": 15.9,
+        "keyword": true,
+        "startFrame": 452,
+        "endFrame": 477
+      }
+    ],
+    [
+      {
+        "text": "עסק",
+        "start": 15.9,
+        "end": 16.462,
+        "keyword": false,
+        "startFrame": 477,
+        "endFrame": 494
+      },
+      {
+        "text": "של",
+        "start": 16.462,
+        "end": 17.025,
+        "keyword": false,
+        "startFrame": 494,
+        "endFrame": 511
+      },
+      {
+        "text": "מילואימניק",
+        "start": 17.025,
+        "end": 17.587,
+        "keyword": true,
+        "startFrame": 511,
+        "endFrame": 528
+      }
+    ],
+    [
+      {
+        "text": "והתוצאה...",
+        "start": 17.787,
+        "end": 18.687,
+        "keyword": false,
+        "startFrame": 534,
+        "endFrame": 561
+      }
+    ],
+    [
+      {
+        "text": "מושלמת",
+        "start": 18.787,
+        "end": 20.05,
+        "keyword": true,
+        "startFrame": 564,
+        "endFrame": 602
+      }
+    ]
+  ],
+  "beats": [
+    42,
+    81,
+    120,
+    156,
+    190,
+    237,
+    280,
+    315,
+    347,
+    426,
+    477,
+    532,
+    562
+  ],
+  "audioBeats": [],
+  "video": "kolortek_edit.mp4",
+  "logo": "logo.jpg",
+  "logoRound": true,
+  "introFrames": 42,
+  "introZoomTo": 1.08,
+  "zoomOrigin": "50% 50%",
+  "highlightActive": false,
+  "outroFrames": 105,
+  "outro": {
+    "line1": "להצעת מחיר",
+    "line2": "שלחו וואטסאפ",
+    "phone": "053-323-7036",
+    "whatsapp": true,
+    "footer": "קולורטק · עסק של מילואימניק · עבודה עברית"
+  }
+}
