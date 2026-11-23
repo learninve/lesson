@@ -60,3 +60,5 @@ cd remotion && npx remotion render src/index.ts KolortekSeam ../kolortek_seam_fi
 Captions are written copy (edit `LINES` in `build_seam_data.py`); the 3.5 s end card shows the
 Kolortek badge, "להצעת מחיר" and 053-323-7036. `edit_cuts.sh` is the generic form of
 `edit_car_seat.sh` (segments passed as arguments).
+The Remotion output is full-range `yuvj420p` (21 MB), which some phones/apps refuse to load, so the
+delivered file is re-encoded to standard `yuv420p` bt709 TV-range, CRF 21 (max 6 Mbps), AAC 44.1 kHz, faststart.
