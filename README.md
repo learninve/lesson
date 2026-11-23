@@ -62,3 +62,6 @@ Kolortek badge, "להצעת מחיר" and 053-323-7036. `edit_cuts.sh` is the ge
 `edit_car_seat.sh` (segments passed as arguments).
 The Remotion output is full-range `yuvj420p` (21 MB), which some phones/apps refuse to load, so the
 delivered file is re-encoded to standard `yuv420p` bt709 TV-range, CRF 21 (max 6 Mbps), AAC 44.1 kHz, faststart.
+
+Cover: `cd remotion && npx remotion still src/index.ts KolortekSeamCover ../kolortek_seam_cover.jpg --image-format jpeg --jpeg-quality 93`
+(`src/Cover.tsx`; logo, headline and tag stay inside the centre 4:5 area so grid crops keep them).

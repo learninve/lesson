@@ -1,5 +1,6 @@
 import React from 'react';
-import {Composition} from 'remotion';
+import {Composition, Still} from 'remotion';
+import {Cover} from './Cover';
 import {OUTRO_FRAMES, ViralReel} from './ViralReel';
 import data from './data.json';
 import carSeat from './data_car_seat.json';
@@ -34,6 +35,21 @@ export const RemotionRoot: React.FC = () => {
         width={seam.width}
         height={seam.height}
         defaultProps={{data: seam}}
+      />
+      <Still
+        id="KolortekSeamCover"
+        component={Cover}
+        width={1080}
+        height={1920}
+        defaultProps={{
+          data: {
+            bg: 'seam_cover_bg.png',
+            logo: 'logo.jpg',
+            line1: 'אל תצבעו',
+            line2: 'על סדק כזה!',
+            tag: 'ככה מתקנים נכון',
+          },
+        }}
       />
     </>
   );
