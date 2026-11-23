@@ -466,11 +466,12 @@ export const ViralReel: React.FC<{data: ReelData}> = ({data}) => {
         <Sequence from={0} durationInFrames={mainFrames} layout="none">
           <OffthreadVideo src={staticFile(videoFile)} style={videoStyle} />
         </Sequence>
-        <Sequence from={mainFrames} durationInFrames={resultFrames + outroFrames} layout="none">
+        {/* Freeze must not sit inside a Sequence: the Sequence offset would push the frozen frame negative */}
+        {frame >= mainFrames ? (
           <Freeze frame={mainFrames - 1}>
             <OffthreadVideo src={staticFile(videoFile)} muted style={videoStyle} />
           </Freeze>
-        </Sequence>
+        ) : null}
       </AbsoluteFill>
       {/* subtle vignette so white text stays readable on the bright ceiling */}
       <AbsoluteFill

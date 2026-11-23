@@ -3,6 +3,7 @@ import {Composition} from 'remotion';
 import {OUTRO_FRAMES, ViralReel} from './ViralReel';
 import data from './data.json';
 import carSeat from './data_car_seat.json';
+import seam from './data_seam.json';
 
 export const RemotionRoot: React.FC = () => {
   return (
@@ -24,6 +25,15 @@ export const RemotionRoot: React.FC = () => {
         width={carSeat.width}
         height={carSeat.height}
         defaultProps={{data: carSeat}}
+      />
+      <Composition
+        id="KolortekSeam"
+        component={ViralReel}
+        durationInFrames={seam.durationInFrames + seam.outroFrames}
+        fps={seam.fps}
+        width={seam.width}
+        height={seam.height}
+        defaultProps={{data: seam}}
       />
     </>
   );

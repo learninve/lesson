@@ -1,0 +1,228 @@
+{
+  "fps": 30,
+  "width": 1080,
+  "height": 1920,
+  "durationInFrames": 452,
+  "captionSource": "build_seam_data.py",
+  "chunks": [
+    [
+      {
+        "text": "אל",
+        "start": 0.0,
+        "end": 0.625,
+        "keyword": false,
+        "startFrame": 0,
+        "endFrame": 19
+      },
+      {
+        "text": "תצבעו",
+        "start": 0.625,
+        "end": 1.25,
+        "keyword": false,
+        "startFrame": 19,
+        "endFrame": 38
+      }
+    ],
+    [
+      {
+        "text": "על",
+        "start": 1.25,
+        "end": 1.667,
+        "keyword": false,
+        "startFrame": 38,
+        "endFrame": 50
+      },
+      {
+        "text": "סדק",
+        "start": 1.667,
+        "end": 2.083,
+        "keyword": true,
+        "startFrame": 50,
+        "endFrame": 63
+      },
+      {
+        "text": "כזה!",
+        "start": 2.083,
+        "end": 2.5,
+        "keyword": true,
+        "startFrame": 63,
+        "endFrame": 75
+      }
+    ],
+    [
+      {
+        "text": "שפכטל",
+        "start": 2.5,
+        "end": 3.025,
+        "keyword": false,
+        "startFrame": 75,
+        "endFrame": 91
+      },
+      {
+        "text": "מעל?",
+        "start": 3.025,
+        "end": 3.55,
+        "keyword": false,
+        "startFrame": 91,
+        "endFrame": 106
+      }
+    ],
+    [
+      {
+        "text": "הסדק",
+        "start": 3.55,
+        "end": 4.075,
+        "keyword": false,
+        "startFrame": 106,
+        "endFrame": 122
+      },
+      {
+        "text": "יחזור",
+        "start": 4.075,
+        "end": 4.6,
+        "keyword": true,
+        "startFrame": 122,
+        "endFrame": 138
+      }
+    ],
+    [
+      {
+        "text": "אנחנו",
+        "start": 4.7,
+        "end": 5.4,
+        "keyword": false,
+        "startFrame": 141,
+        "endFrame": 162
+      },
+      {
+        "text": "פותחים",
+        "start": 5.4,
+        "end": 6.1,
+        "keyword": false,
+        "startFrame": 162,
+        "endFrame": 183
+      }
+    ],
+    [
+      {
+        "text": "עד",
+        "start": 6.1,
+        "end": 6.85,
+        "keyword": true,
+        "startFrame": 183,
+        "endFrame": 206
+      },
+      {
+        "text": "הסוף",
+        "start": 6.85,
+        "end": 7.6,
+        "keyword": true,
+        "startFrame": 206,
+        "endFrame": 228
+      }
+    ],
+    [
+      {
+        "text": "מוציאים",
+        "start": 7.7,
+        "end": 8.467,
+        "keyword": false,
+        "startFrame": 231,
+        "endFrame": 254
+      },
+      {
+        "text": "את",
+        "start": 8.467,
+        "end": 9.233,
+        "keyword": false,
+        "startFrame": 254,
+        "endFrame": 277
+      },
+      {
+        "text": "הישן",
+        "start": 9.233,
+        "end": 10.0,
+        "keyword": true,
+        "startFrame": 277,
+        "endFrame": 300
+      }
+    ],
+    [
+      {
+        "text": "בלי",
+        "start": 10.1,
+        "end": 11.133,
+        "keyword": false,
+        "startFrame": 303,
+        "endFrame": 334
+      },
+      {
+        "text": "קיצורי",
+        "start": 11.133,
+        "end": 12.167,
+        "keyword": true,
+        "startFrame": 334,
+        "endFrame": 365
+      },
+      {
+        "text": "דרך",
+        "start": 12.167,
+        "end": 13.2,
+        "keyword": true,
+        "startFrame": 365,
+        "endFrame": 396
+      }
+    ],
+    [
+      {
+        "text": "ככה",
+        "start": 13.3,
+        "end": 13.872,
+        "keyword": false,
+        "startFrame": 399,
+        "endFrame": 416
+      },
+      {
+        "text": "מתקנים",
+        "start": 13.872,
+        "end": 14.444,
+        "keyword": false,
+        "startFrame": 416,
+        "endFrame": 433
+      },
+      {
+        "text": "נכון",
+        "start": 14.444,
+        "end": 15.017,
+        "keyword": true,
+        "startFrame": 433,
+        "endFrame": 450
+      }
+    ]
+  ],
+  "beats": [
+    38,
+    75,
+    106,
+    140,
+    183,
+    230,
+    302,
+    398
+  ],
+  "audioBeats": [],
+  "video": "seam_edit.mp4",
+  "logo": "logo.jpg",
+  "logoRound": true,
+  "introFrames": 38,
+  "introZoomTo": 1.15,
+  "zoomOrigin": "50% 45%",
+  "highlightActive": false,
+  "outroFrames": 105,
+  "outro": {
+    "line1": "סדקים בבית?",
+    "line2": "להצעת מחיר",
+    "phone": "053-323-7036",
+    "footer": "קולורטק · עבודה עברית"
+  }
+}

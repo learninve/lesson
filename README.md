@@ -47,3 +47,16 @@ cd remotion && npx remotion render src/index.ts ViralReel ../viral_output.mp4 \
   --codec h264 --crf 18 --browser-executable /opt/pw-browsers/chromium
 ```
 Output: 1080x1920, 30 fps, 12.0 s (10 s clip + 2 s end card), -14 LUFS.
+
+## Kolortek drywall-seam reel → `kolortek_seam_final.mp4`
+52 s raw clip (knife opening a cracked drywall seam, no speech) → 18.6 s reel.
+```
+./edit_cuts.sh raw.mp4 remotion/public/seam_edit.mp4 "0 1.25 1" "2 8.8 2" "11.4 15.9 1.5" \
+    "19.3 25.3 2.5" "38.7 42.7 1.25" "49.95 51.8 1"      # source seconds + speed, -14 LUFS
+python3 build_seam_data.py                               # captions/beats -> remotion/src/data_seam.json
+cd remotion && npx remotion render src/index.ts KolortekSeam ../kolortek_seam_final.mp4 \
+    --codec h264 --crf 18 --browser-executable /opt/pw-browsers/chromium
+```
+Captions are written copy (edit `LINES` in `build_seam_data.py`); the 3.5 s end card shows the
+Kolortek badge, "להצעת מחיר" and 053-323-7036. `edit_cuts.sh` is the generic form of
+`edit_car_seat.sh` (segments passed as arguments).
